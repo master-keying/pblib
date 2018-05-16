@@ -2,7 +2,9 @@
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
+#ifdef __linux__
 #include <sys/resource.h>
+#endif
 
 #include "../PBParser.h"
 #include "../pb2cnf.h"
@@ -413,6 +415,7 @@ int main(int argc, char **argv)
 
   bool  cnf_output_only = false;
 
+#ifdef __linux__
   int cpu_lim = -1; // Limit on CPU time allowed in seconds
   int mem_lim = -1; // Limit on memory usage in megabytes
 
@@ -437,6 +440,7 @@ int main(int argc, char **argv)
 	      printf("c WARNING! Could not set resource limit: Virtual memory.\n");
       } }
   // end of copy and paste
+#endif
 
   if (argc < 2)
   {
@@ -680,9 +684,11 @@ int main(int argc, char **argv)
   tend = clock();
   cout << "c wall time: " << (tend - tstart) / CLOCKS_PER_SEC << " sec" << endl;
 
+#ifdef __linux__
   struct rusage rusage;
   getrusage( RUSAGE_SELF, &rusage );
   cout <<"c Memory usage: "<< (size_t)(rusage.ru_maxrss / 1024L) << " mbyte" << endl;
+#endif
 
   return 0;
 }

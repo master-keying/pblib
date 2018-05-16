@@ -263,6 +263,7 @@ public:
 	 */
 	void linearizeProduct(int newSymbol, std::vector<int> product)
 	{
+		using uint = unsigned int;
 		std::vector<int> lits;
 
 		lits.push_back(newSymbol);
@@ -345,6 +346,7 @@ public:
 	 */
 	int getProductVariable(std::vector<int> &list)
 	{
+		using uint = unsigned int;
 		std::vector<ProductNode> *p=&root;
 		typename std::vector<ProductNode>::iterator pos;
 
@@ -402,6 +404,7 @@ private:
 	void defineProductVariableRec(Callback &cb,
 			std::vector<ProductNode> &nodes, std::vector<int> &list)
 	{
+		using uint = unsigned int;
 		for(uint i=0;i<nodes.size();++i)
 		{
 			list.push_back(nodes[i].lit);
@@ -422,6 +425,7 @@ private:
 	 */
 	void freeProductVariableRec(std::vector<ProductNode> &nodes)
 	{
+		using uint = unsigned int;
 		for(uint i=0;i<nodes.size();++i)
 		{
 			if (nodes[i].next)

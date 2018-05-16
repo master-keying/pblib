@@ -1,7 +1,7 @@
 #include <iostream>
 #include <assert.h>
 #include <stdlib.h>
-#include <sys/time.h>
+#include <time.h>
 
 #include "pb2cnf.h"
 #include "PBFuzzer.h"
@@ -41,9 +41,8 @@ int main(int argc, char **argv)
   }
 
 
-  struct timeval time;
-  gettimeofday(&time,NULL);
-  unsigned int seed = (time.tv_sec * 1000) + (time.tv_usec / 1000);
+  srand(time(NULL));
+  unsigned int seed = rand();
 
   if (options.find("seed") != options.end())
     seed = (unsigned int) atol(options["seed"].c_str());

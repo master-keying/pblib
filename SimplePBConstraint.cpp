@@ -23,32 +23,32 @@ SimplePBConstraint::SimplePBConstraint(int64_t max_sum, int64_t max_weight, PBTY
   assert(max_weight <= max_sum);
 }
 
-void SimplePBConstraint::printNoNL(bool stderr) const
+void SimplePBConstraint::printNoNL(bool std_err) const
 {
   using namespace std;
   if (getType() == DONTCARE)
   {
-    if(stderr)
+    if(std_err)
       cerr << "DONTCARE" << " ";
     else
       cout << "DONTCARE" << " ";
   }
   else
-    PBConstraint::printNoNL(stderr);
+    PBConstraint::printNoNL(std_err);
 }
 
-void SimplePBConstraint::print(bool stderr) const
+void SimplePBConstraint::print(bool std_err) const
 {
   using namespace std;
   if (getType() == DONTCARE)
   {
-    if(stderr)
+    if(std_err)
       cerr << "DONTCARE" << endl;
     else
       cout << "DONTCARE" << endl;
   }
   else
-    PBConstraint::print(stderr);
+    PBConstraint::print(std_err);
 }
 
 

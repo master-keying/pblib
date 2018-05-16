@@ -10,7 +10,6 @@
 #include <algorithm>
 #include <vector>
 #include <map>
-#include <bits/algorithmfwd.h>
 #include "PBConfig.h"
 
 class FormulaClass;

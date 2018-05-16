@@ -96,6 +96,7 @@ void AMO_Encoder::encodeEq(const SimplePBConstraint& pbconstraint, ClauseDatabas
 {
 	_literals.clear();
 
+	using uint = unsigned int;
 	for(uint i = 0;i < pbconstraint.getWeightedLiterals().size();++i){
 		_literals.push_back(pbconstraint.getWeightedLiterals()[i].lit);
 	}

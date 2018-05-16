@@ -152,12 +152,12 @@ bool PBConstraint::operator==(const PBConstraint& other) const
 
 //TODO rewrite print functions ...
 
-void PBConstraint::print(bool stderr) const
+void PBConstraint::print(bool std_err) const
 {
 
   if (getN() == 0)
   {
-    if (stderr)
+    if (std_err)
       cerr << "TRUE" << endl;
     else
       cout << "TRUE" << endl;
@@ -166,20 +166,20 @@ void PBConstraint::print(bool stderr) const
 
   if (conditionals.size() > 0)
   {
-      if (stderr)
+      if (std_err)
 	cerr << "[";
       else
 	cout << "[";
 
     for (int i = 0; i < conditionals.size(); ++i)
     {
-      if (stderr)
+      if (std_err)
 	cerr << conditionals[i] << ",";
       else
 	cout << conditionals[i] << ",";
     }
 
-    if (stderr)
+    if (std_err)
 	cerr << "] => ";
       else
 	cout << "] => ";
@@ -190,37 +190,37 @@ void PBConstraint::print(bool stderr) const
     if (i < getN() - 1)
     {
       if (weighted_literals[i].lit < 0)
-	if (stderr) cerr << weighted_literals[i].weight << " -x" << -weighted_literals[i].lit << " +";
+	if (std_err) cerr << weighted_literals[i].weight << " -x" << -weighted_literals[i].lit << " +";
 	else  cout << weighted_literals[i].weight << " -x" << -weighted_literals[i].lit << " +";
       else
-	if (stderr) cerr << weighted_literals[i].weight << " x" << weighted_literals[i].lit << " +";
+	if (std_err) cerr << weighted_literals[i].weight << " x" << weighted_literals[i].lit << " +";
 	else cout << weighted_literals[i].weight << " x" << weighted_literals[i].lit << " +";
     }
     else
     {
       if (weighted_literals[getN() - 1].lit < 0)
-	if (stderr) cerr << weighted_literals[getN() - 1].weight << " -x" << -weighted_literals[getN() - 1].lit;
+	if (std_err) cerr << weighted_literals[getN() - 1].weight << " -x" << -weighted_literals[getN() - 1].lit;
 	else cout << weighted_literals[getN() - 1].weight << " -x" << -weighted_literals[getN() - 1].lit;
       else
-	if(stderr) cerr << weighted_literals[getN() - 1].weight << " x" << weighted_literals[getN() - 1].lit;
+	if(std_err) cerr << weighted_literals[getN() - 1].weight << " x" << weighted_literals[getN() - 1].lit;
 	else cout << weighted_literals[getN() - 1].weight << " x" << weighted_literals[getN() - 1].lit;
     }
   }
 
 
   if (comparator == LEQ)
-    if(stderr) cerr << " =< " << leq << endl;
+    if(std_err) cerr << " =< " << leq << endl;
     else cout << " =< " << leq << endl;
   else if (comparator == GEQ)
-    if(stderr) cerr << " >= " << geq << endl;
+    if(std_err) cerr << " >= " << geq << endl;
     else cout << " >= " << geq << endl;
   else
-    if(stderr) cerr << " >= " << geq << " =< " << leq << endl;
+    if(std_err) cerr << " >= " << geq << " =< " << leq << endl;
     else cout << " >= " << geq << " =< " << leq << endl;
 
 }
 
-void PBConstraint::printGeq(bool stderr) const
+void PBConstraint::printGeq(bool std_err) const
 {
   if (comparator != LEQ)
   {
@@ -230,14 +230,14 @@ void PBConstraint::printGeq(bool stderr) const
 
   if (getN() == 0)
   {
-    if (stderr)
+    if (std_err)
       cerr << "TRUE" << endl;
     else
       cout << "TRUE" << endl;
     return;
   }
 
-  if (stderr) cerr << "-";
+  if (std_err) cerr << "-";
   else  cout << "-";
 
   for (int i = 0; i < getN(); ++i)
@@ -245,19 +245,19 @@ void PBConstraint::printGeq(bool stderr) const
     if (i < getN() - 1)
     {
       if (weighted_literals[i].lit < 0)
-	if (stderr) cerr << weighted_literals[i].weight << " ~x" << -weighted_literals[i].lit << " -";
+	if (std_err) cerr << weighted_literals[i].weight << " ~x" << -weighted_literals[i].lit << " -";
 	else  cout << weighted_literals[i].weight << " ~x" << -weighted_literals[i].lit << " -";
       else
-	if (stderr) cerr << weighted_literals[i].weight << " x" << weighted_literals[i].lit << " -";
+	if (std_err) cerr << weighted_literals[i].weight << " x" << weighted_literals[i].lit << " -";
 	else cout << weighted_literals[i].weight << " x" << weighted_literals[i].lit << " -";
     }
     else
     {
       if (weighted_literals[getN() - 1].lit < 0)
-	if (stderr) cerr << weighted_literals[getN() - 1].weight << " ~x" << -weighted_literals[getN() - 1].lit;
+	if (std_err) cerr << weighted_literals[getN() - 1].weight << " ~x" << -weighted_literals[getN() - 1].lit;
 	else cout << weighted_literals[getN() - 1].weight << " ~x" << -weighted_literals[getN() - 1].lit;
       else
-	if(stderr) cerr << weighted_literals[getN() - 1].weight << " x" << weighted_literals[getN() - 1].lit;
+	if(std_err) cerr << weighted_literals[getN() - 1].weight << " x" << weighted_literals[getN() - 1].lit;
 	else cout << weighted_literals[getN() - 1].weight << " x" << weighted_literals[getN() - 1].lit;
     }
   }
@@ -271,11 +271,11 @@ void PBConstraint::printGeq(bool stderr) const
 
 }
 
-void PBConstraint::printNoNL(bool stderr) const
+void PBConstraint::printNoNL(bool std_err) const
 {
   if (getN() == 0)
   {
-    if (stderr)
+    if (std_err)
       cerr << "TRUE" << " ";
     else
       cout << "TRUE" << " ";
@@ -287,32 +287,32 @@ void PBConstraint::printNoNL(bool stderr) const
     if (i < getN() - 1)
     {
       if (weighted_literals[i].lit < 0)
-	if (stderr) cerr << weighted_literals[i].weight << " -x" << -weighted_literals[i].lit << " +";
+	if (std_err) cerr << weighted_literals[i].weight << " -x" << -weighted_literals[i].lit << " +";
 	else  cout << weighted_literals[i].weight << " -x" << -weighted_literals[i].lit << " +";
       else
-	if (stderr) cerr << weighted_literals[i].weight << " x" << weighted_literals[i].lit << " +";
+	if (std_err) cerr << weighted_literals[i].weight << " x" << weighted_literals[i].lit << " +";
 	else cout << weighted_literals[i].weight << " x" << weighted_literals[i].lit << " +";
     }
     else
     {
       if (weighted_literals[getN() - 1].lit < 0)
-	if (stderr) cerr << weighted_literals[getN() - 1].weight << " -x" << -weighted_literals[getN() - 1].lit;
+	if (std_err) cerr << weighted_literals[getN() - 1].weight << " -x" << -weighted_literals[getN() - 1].lit;
 	else cout << weighted_literals[getN() - 1].weight << " -x" << -weighted_literals[getN() - 1].lit;
       else
-	if(stderr) cerr << weighted_literals[getN() - 1].weight << " x" << weighted_literals[getN() - 1].lit;
+	if(std_err) cerr << weighted_literals[getN() - 1].weight << " x" << weighted_literals[getN() - 1].lit;
 	else cout << weighted_literals[getN() - 1].weight << " x" << weighted_literals[getN() - 1].lit;
     }
   }
 
 
   if (comparator == LEQ)
-    if(stderr) cerr << " =< " << leq << " ";
+    if(std_err) cerr << " =< " << leq << " ";
     else cout << " =< " << leq << " ";
   else if (comparator == GEQ)
-    if(stderr) cerr << " >= " << geq << " ";
+    if(std_err) cerr << " >= " << geq << " ";
     else cout << " >= " << geq << " ";
   else
-    if(stderr) cerr << " >= " << geq << " =< " << leq << " ";
+    if(std_err) cerr << " >= " << geq << " =< " << leq << " ";
     else cout << " >= " << geq << " =< " << leq << " ";
 
 }

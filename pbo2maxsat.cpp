@@ -2,7 +2,6 @@
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
-#include <sys/resource.h>
 
 // PBLib
 // #include "incpbconstraint.h"
@@ -10,7 +9,6 @@
 #include "PBParser.h"
 #include "pb2cnf.h"
 #include "VectorClauseDatabase.h"
-#include <sys/time.h>
 
 
 using namespace std;
