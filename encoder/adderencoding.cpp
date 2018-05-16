@@ -2,6 +2,12 @@
 #include "adderencoding.h"
 #include "../helper.h"
 
+#ifdef _MSC_VER
+#include <intrin.h>
+#pragma intrinsic(_BitScanReverse)
+#endif
+
+
 using namespace std;
 
 AdderEncoding::AdderIncData::AdderIncData(vector< int32_t > result) : result(result)
@@ -262,22 +268,49 @@ void AdderEncoding::encode(const shared_ptr< IncSimplePBConstraint >& pbconstrai
   isInc = false;
 }
 
-int PBLib::ld64(const uint64_t x)
+namespace PBLib {
+namespace {
+int non_builtin_clz11(const uint64_t x)
 {
-  return (sizeof(uint64_t) << 3) - __builtin_clzll (x);
-//   cout << "x " << x << endl;
-//   int ldretutn = 0;
-//   for (int i = 0; i < 63; ++i)
-//   {
-//     if ((x & (1 << i)) > 0)
-//     {
-//       cout << "ldretutn " << ldretutn << endl;
-//       ldretutn = i + 1;
-//     }
-//   }
-//
-//   return ldretutn;
+  int ldretutn = 0;
+  uint64_t mask = 1;
+  mask = mask << 63;
+  for (int i = 0; i < 64; ++i) {
+    if ((x & mask) > 0) {
+      return i;
+    }
+    mask = mask >> 1;
+  }
+  return 64;
 }
+} // anon
+
+int ld64(const uint64_t x)
+{
+#if defined(__GNUC__)
+  int index;
+  if (x == 0)
+    // GCC has undefined behavior here,
+    // which was used in the original code.
+    // Let's simulate GCC 5.4.0 on Ubuntu 16.04.
+    // Hopefully, we match the intended behavior.
+    index = 64;
+  else {
+    index = __builtin_clzll(x);
+  }
+#elif defined(_MSC_VER)
+  unsigned long index;
+  if (!_BitScanReverse64(&index, x)) {
+    index = 64; // simulate GCC as above
+  }
+#else
+  int index = non_builtin_clz11(x);
+#endif
+
+  return (sizeof(uint64_t) << 3) - index;
+}
+
+} // PBlib
 
 void AdderEncoding::encode ( const SimplePBConstraint& pbconstraint, ClauseDatabase & formula, AuxVarManager & auxvars ) {
 
