@@ -45,7 +45,7 @@ inline std::ostream& operator<<(std::ostream& other, const std::vector<T>& data 
 
 
 class RandomCounter
-{  
+{
 public:
   static uint64_t callCount;
   static int rand();
@@ -54,9 +54,9 @@ public:
 namespace helper
 {
   void printClause(std::vector<int32_t> & clause);
-  
-  
+
+
 }
 
 
-#endif 
+#endif

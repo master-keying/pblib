@@ -53,7 +53,7 @@ add_custom_target(tar COMMAND
 )
 
 add_custom_target(tar_lib COMMAND
-    ${CMAKE_COMMAND} -E tar "czf" "pblib_static.tgz"  "libpblib.a" "lib/" "manual/pblib.pdf" "LICENSE" "pbencoder"  "manual/pblib.pdf" "BasicPBSolver/pbsolver" "VERSION" 
+    ${CMAKE_COMMAND} -E tar "czf" "pblib_static.tgz"  "libpblib.a" "lib/" "manual/pblib.pdf" "LICENSE" "pbencoder"  "manual/pblib.pdf" "BasicPBSolver/pbsolver" "VERSION"
 )
 
 

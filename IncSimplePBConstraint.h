@@ -19,7 +19,7 @@ public:
     IncSimplePBConstraint(int64_t max_sum, int64_t max_weight, int64_t normalizedOffset, PBTYPE type, std::vector<PBLib::WeightedLit>& literals, PBLib::Comparator comparator, int64_t bound);
 
     void setIncrementalData(std::shared_ptr<IncrementalData>  incremental_data);
-    
+
     void encodeNewGeq(int64_t newGeq, ClauseDatabase & formula, AuxVarManager & auxVars);
     void encodeNewLeq(int64_t newLeq, ClauseDatabase & formula, AuxVarManager & auxVars);
 };

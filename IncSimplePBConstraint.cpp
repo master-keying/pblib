@@ -12,7 +12,7 @@ IncSimplePBConstraint::IncSimplePBConstraint(int64_t max_sum, int64_t max_weight
 IncSimplePBConstraint::IncSimplePBConstraint(int64_t max_sum, int64_t max_weight,int64_t normalizedOffset, PBTYPE type, vector< WeightedLit >& literals, Comparator comparator, int64_t bound): SimplePBConstraint(max_sum, max_weight,type, literals, comparator, bound)
 {
   this->normalized_offset = normalizedOffset;
-  
+
   assert(comparator == LEQ);
   init_leq = bound;
   init_geq = 0;
@@ -22,14 +22,14 @@ void IncSimplePBConstraint::encodeNewGeq(int64_t newGeq, ClauseDatabase& formula
 {
   assert(comparator == BOTH);
   geq = newGeq + normalized_offset; // add the offset from the normalization to the new bound
-  
+
   if (geq <= init_geq)
   {
     geq = init_geq;
     return;
   }
-  
-  
+
+
   if ((leq < geq))
   {
     formula.addConditionals(conditionals);
@@ -38,10 +38,10 @@ void IncSimplePBConstraint::encodeNewGeq(int64_t newGeq, ClauseDatabase& formula
 	formula.getConditionals().pop_back();
     return;
   }
-  
+
   if (geq <= 0)
     return;
-  
+
   incremental_data->encodeNewGeq(geq, formula, auxVars, conditionals);
 }
 
@@ -53,7 +53,7 @@ void IncSimplePBConstraint::encodeNewLeq(int64_t newLeq, ClauseDatabase& formula
     leq = init_leq;
     return;
   }
-  
+
   // check if constraint became trivial
   if (leq < 0 || (leq < geq))
   {
@@ -61,7 +61,7 @@ void IncSimplePBConstraint::encodeNewLeq(int64_t newLeq, ClauseDatabase& formula
     formula.addUnsat();
     for (int i = 0; i < conditionals.size(); ++i)
 	formula.getConditionals().pop_back();
-	
+
     return;
   }
   else if (leq == 0)
@@ -73,11 +73,11 @@ void IncSimplePBConstraint::encodeNewLeq(int64_t newLeq, ClauseDatabase& formula
       formula.addClause(-weighted_literals[i].lit);
       for (int i = 0; i < conditionals.size(); ++i)
 	  formula.getConditionals().pop_back();
-      
+
     }
     return;
   }
-  
+
 
   incremental_data->encodeNewLeq(leq, formula, auxVars, conditionals);
 }

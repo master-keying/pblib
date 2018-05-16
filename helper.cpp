@@ -12,7 +12,7 @@ void helper::printClause(std::vector< int32_t > & clause)
   for (int i = 1; i < clause.size(); ++i)
   {
     cout << " ," << clause[i];
-  }    
+  }
   cout << "]" << endl;
 }
 

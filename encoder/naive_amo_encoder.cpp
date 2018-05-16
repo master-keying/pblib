@@ -26,7 +26,7 @@ void Naive_amo_encoder::encode(const SimplePBConstraint& pbconstraint, ClauseDat
 
   if (config->print_used_encodings)
     cout << "c encode with naive amo encoder" << endl;
-  
+
   assert(pbconstraint.getLeq() == 1);
 
   _literals.clear();
@@ -40,9 +40,9 @@ void Naive_amo_encoder::encode(const SimplePBConstraint& pbconstraint, ClauseDat
     assert(pbconstraint.getGeq() == 1 && pbconstraint.getLeq() == 1);
     formula.addClause(_literals);
   }
-  
+
   encode_intern(_literals, formula);
-  
+
   for (int i = 0; i < pbconstraint.getConditionals().size(); ++i)
     formula.getConditionals().pop_back();
 }

@@ -68,7 +68,7 @@ void ClauseDatabase::addClause(const vector< int32_t >& clause)
 	  for (int32_t lit : conditionals)
 		copy.push_back(-lit);
 	}
-	
+
     copy.resize( distance(copy.begin(),unique (copy.begin(), copy.end()) ) );
     addClauseIntern(copy);
   }
@@ -76,10 +76,10 @@ void ClauseDatabase::addClause(const vector< int32_t >& clause)
   {
 	  if (conditionals.size() > 0)
 	  {
-			vector<int32_t> copy = clause;		  
+			vector<int32_t> copy = clause;
 			for (int32_t lit : conditionals)
 			  copy.push_back(-lit);
-			
+
 			addClauseIntern(copy);
 	  }
 	  else
@@ -110,9 +110,9 @@ int32_t ClauseDatabase::polarityClausify(const Formula& f, AuxVarManager& aux_va
 {
     Lit result = 0;
     std::unordered_map<int32_t,Lit>::const_iterator it;
-    
+
     assert (f != _undef_);
-    
+
     if (isAtom(f))
     {
 	result = getLit(f);
@@ -121,14 +121,14 @@ int32_t ClauseDatabase::polarityClausify(const Formula& f, AuxVarManager& aux_va
     }
     else if ((it = history.find(f->data)) != history.end())
     {
-      result = it->second;      
+      result = it->second;
       assert(result != 0);
       return result;
     }
     else
     {
       assert (!isAtom(f));
-      
+
     // TODO is this sound?
 //       if ((it = history.find((~f)->data)) != history.end())
 //       {
@@ -137,7 +137,7 @@ int32_t ClauseDatabase::polarityClausify(const Formula& f, AuxVarManager& aux_va
 //       }
 //       else
 	result = aux_vars.getVariable();
-      
+
       if ((f == _true_) || (f == _false_))
       {
 	addClause(result); // if f == _false_ ... result will be negated later on
@@ -228,7 +228,7 @@ int32_t ClauseDatabase::polarityClausify(const Formula& f, AuxVarManager& aux_va
         Lit  b = polarityClausify( false_branch(f), aux_vars);
 	addClause(b, -result, 0);
 	addClause(a, -s, -result, 0);
-      } 
+      }
       else
       {
 	cerr << "Error cannot encode Formula: " << endl;
@@ -236,10 +236,10 @@ int32_t ClauseDatabase::polarityClausify(const Formula& f, AuxVarManager& aux_va
 	exit(-1);
 	assert(false);
       }
-      
+
       if (isNeg(f))
 	result = -result;
-      
+
       history[f->data] = result;
     }
 

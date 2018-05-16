@@ -20,7 +20,7 @@ protected:
     std::vector<PBLib::WeightedLit> weighted_literals;
     Comparator comparator;
     std::vector<int32_t> conditionals;
-    
+
 public:
    PBConstraint(std::vector<PBLib::WeightedLit> const & literals, Comparator comparator, int64_t less_eq, int64_t greater_eq);
    PBConstraint(std::vector<PBLib::WeightedLit> const & literals, Comparator comparator, int64_t bound);
@@ -29,27 +29,27 @@ public:
    void addConditionals(std::vector<int32_t> lits);
    void clearConditionals();
    std::vector<int32_t> const & getConditionals() const;
-   
+
     std::vector<PBLib::WeightedLit> & getWeightedLiterals();
     std::vector<PBLib::WeightedLit> const & getWeightedLiterals() const;
     int64_t getLeq() const;
     int64_t getGeq() const;
     virtual ~PBConstraint();
     Comparator getComparator() const;
-    
+
    PBConstraint getGeqConstraint() const;
    PBConstraint getLeqConstraint() const;
-    
+
     int64_t getMinSum() const;
     int64_t getMaxSum() const;
-    
+
     void setLeq(int64_t leq);
     void setGeq(int64_t geq);
-    
+
     int getN() const;
-    
+
     void setComparator(Comparator comparator);
-    
+
     virtual void printGeq(bool stderr = false) const;
     virtual void print(bool stderr = false) const;
     virtual void printNoNL(bool stderr = false) const;

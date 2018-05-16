@@ -20,9 +20,9 @@
 class BDD_Seq_Amo : public Encoder
 {
 private:
-    std::vector<Lit> _literals;    
+    std::vector<Lit> _literals;
     std::vector<Lit> aux;
-    
+
 public:
     void encode_intern( std::vector<Lit>& literals, ClauseDatabase & formula, AuxVarManager & auxvars);
     void encode(const SimplePBConstraint& pbconstraint, ClauseDatabase & formula, AuxVarManager & auxvars);

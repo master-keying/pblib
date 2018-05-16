@@ -26,8 +26,8 @@ void Binary_AMO_Encoder::encode_intern(vector< int32_t >& literals, ClauseDataba
       // else skip that bit since it is redundant
     }
   }
-  
-  
+
+
   for (; i < two_pow_nbits; ++i)
   {
     index++;
@@ -55,10 +55,10 @@ int64_t Binary_AMO_Encoder::encodingValue(const SimplePBConstraint& pbconstraint
 void Binary_AMO_Encoder::encode(const SimplePBConstraint& pbconstraint, ClauseDatabase & formula, AuxVarManager & auxvars)
 {
   formula.addConditionals(pbconstraint.getConditionals());
-  
+
   if (config->print_used_encodings)
     cout << "c encode with binary amo" << endl;
-  
+
   assert(pbconstraint.getLeq() == 1);
 
   _literals.clear();
@@ -73,16 +73,16 @@ void Binary_AMO_Encoder::encode(const SimplePBConstraint& pbconstraint, ClauseDa
     assert(pbconstraint.getGeq() == 1 && pbconstraint.getLeq() == 1);
     formula.addClause(_literals);
   }
-  
+
   nBits = ceil(log2(_literals.size()));
   two_pow_nbits = pow(2,nBits);
   k = (two_pow_nbits - _literals.size()) * 2; // k is the number of literals that share a bit because of redundancy
-  
+
   for (int i = 0; i < nBits; ++i)
     bits.push_back(auxvars.getVariable());
-  
+
   encode_intern(_literals, formula, auxvars);
-  
+
   for (int i = 0; i < pbconstraint.getConditionals().size(); ++i)
     formula.getConditionals().pop_back();
 }

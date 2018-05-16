@@ -24,8 +24,8 @@ private:
     int minimum_lit_count;
     int k;
     std::vector<Lit> _literals;
-    
-    
+
+
     void encode_intern( std::vector<Lit>& literals, ClauseDatabase & formula, AuxVarManager & auxvars);
     void encode_non_recursive(std::vector< Lit > & literals, ClauseDatabase & formula, AuxVarManager & auxvars);
 public:

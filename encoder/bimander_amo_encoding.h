@@ -26,7 +26,7 @@ private:
     Naive_amo_encoder naive_amo_encoder;
 
 
-    void encode_intern( std::vector<Lit>& literals, ClauseDatabase & formula, AuxVarManager & auxvars);    
+    void encode_intern( std::vector<Lit>& literals, ClauseDatabase & formula, AuxVarManager & auxvars);
 public:
     void encode(const SimplePBConstraint& pbconstraint, ClauseDatabase & formula, AuxVarManager & auxvars);
     int64_t encodingValue(const SimplePBConstraint& pbconstraint);

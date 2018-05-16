@@ -1,7 +1,7 @@
 #include "PBFuzzer.h"
 
-#include <stdlib.h>     
-#include <time.h>       
+#include <stdlib.h>
+#include <time.h>
 #include <assert.h>
 
 #include "helper.h"
@@ -21,13 +21,13 @@ void PBFuzzer::writeToPBFile(PBConstraint opt_constraint, vector< PBConstraint >
 {
     fstream pbfile(file.c_str(), std::fstream::out);
     stringstream output;
-    
+
     int numConstraints = 0;
-    
+
     for (int i = 0; i < constraints.size(); ++i)
     {
       PBConstraint & constraint = constraints[i];
-      
+
       if (constraint.getComparator() == BOTH && constraint.getLeq() != constraint.getGeq())
       {
 	PBConstraint constraint = constraints[i];
@@ -35,7 +35,7 @@ void PBFuzzer::writeToPBFile(PBConstraint opt_constraint, vector< PBConstraint >
 	constraints.push_back(constraint.getLeqConstraint());
 	continue;
       }
-      
+
       if (constraint.getComparator() == LEQ)
       {
 	for (int j = 0; j < constraint.getN(); ++j)
@@ -45,19 +45,19 @@ void PBFuzzer::writeToPBFile(PBConstraint opt_constraint, vector< PBConstraint >
 	constraint.setComparator(GEQ);
 	constraint.setGeq(-constraint.getLeq());
       }
-      
+
       if (constraint.getN() == 0)
       {
 	continue;
       }
-      
+
       for (int j = 0; j < constraint.getN(); ++j)
       {
 	if (constraint.getWeightedLiterals()[j].weight < 0)
 	  output << constraint.getWeightedLiterals()[j].weight;
 	else
 	  output << "+" << constraint.getWeightedLiterals()[j].weight;
-	
+
 	if (constraint.getWeightedLiterals()[j].lit < 0)
 	  output << " ~x" << -constraint.getWeightedLiterals()[j].lit << " ";
 	else
@@ -67,11 +67,11 @@ void PBFuzzer::writeToPBFile(PBConstraint opt_constraint, vector< PBConstraint >
 	output << ">= " << constraint.getGeq() << " ;"<< endl;
       else
 	output << "= " << constraint.getGeq() << " ;"<< endl;
-      
+
       numConstraints++;
     }
-    
-    
+
+
     pbfile << "* #variable= " << numVars << " #constraint= " << numConstraints<< endl;
     pbfile << "****************************************"<< endl;
     pbfile << "* begin normalizer comments"<< endl;
@@ -87,7 +87,7 @@ void PBFuzzer::writeToPBFile(PBConstraint opt_constraint, vector< PBConstraint >
 	  pbfile << opt_constraint.getWeightedLiterals()[i].weight;
 	else
 	  pbfile << "+" << opt_constraint.getWeightedLiterals()[i].weight;
-	
+
 	if (opt_constraint.getWeightedLiterals()[i].lit < 0)
 	  pbfile << " ~x" << -opt_constraint.getWeightedLiterals()[i].lit << " ";
 	else
@@ -133,7 +133,7 @@ void PBFuzzer::scramble(vector<PBConstraint> & constraints)
 	  constraint.setGeq(constraint.getLeq()); // set to equal
       }
     }
-    
+
     rnd = RandomCounter::rand() % constraint.getN();
     for (int j = 0; j < rnd; ++j)
     {
@@ -154,9 +154,9 @@ PBConstraint PBFuzzer::generatePBConstraint()
   vector<PBConstraint> constraints;
   generatePBProblem(constraints);
   tmp = number_of_constraints;
-  
+
   assert(constraints.size() == 1);
-  
+
   return constraints[0];
 }
 
@@ -164,8 +164,8 @@ PBConstraint PBFuzzer::generatePBConstraint()
 PBConstraint PBFuzzer::generatePBProblem(std::vector< PBConstraint> & constraints)
 {
   constraints.clear();
-  
-  
+
+
   PBConfig config = make_shared<PBConfigClass>();
 
   VectorClauseDatabase formula(config);
@@ -175,21 +175,21 @@ PBConstraint PBFuzzer::generatePBProblem(std::vector< PBConstraint> & constraint
   int constraintSize;
   int leq;
   int geq;
-  
+
   int trivial_count = 0;
   bool retry = false;
   bool isBig;
   while ( constraints.size() < number_of_constraints + 1)
   {
-    literals.clear(); 
+    literals.clear();
     bool isAmk = false;
     bool isAmo = false;
-    
-    
+
+
     if (!retry)
     {
       rnd = RandomCounter::rand() % 100 + 1;
-    
+
       if (RandomCounter::rand() % 100 + 1 <= pBIG)
       {
 	isBig = true;
@@ -199,8 +199,8 @@ PBConstraint PBFuzzer::generatePBProblem(std::vector< PBConstraint> & constraint
 	isBig = false;
       }
     }
-    
-    
+
+
     if (isBig)
     {
       if (constant_constraint_length)
@@ -215,10 +215,10 @@ PBConstraint PBFuzzer::generatePBProblem(std::vector< PBConstraint> & constraint
       else
 	constraintSize = RandomCounter::rand() % max_constraint_size + 1;
     }
-    
-    
+
+
     retry = false;
-    
+
     if (rnd <= pAMO)
     {
       isAmo = true;
@@ -267,7 +267,7 @@ PBConstraint PBFuzzer::generatePBProblem(std::vector< PBConstraint> & constraint
       }
       if (isBig)
 	constraints.push_back(PBConstraint(literals, LEQ, RandomCounter::rand() % (max_big_weight_size * constraintSize)));
-      else  
+      else
 	constraints.push_back(PBConstraint(literals, LEQ, RandomCounter::rand() % (max_weight_size * constraintSize)));
     }
     formula.clearDatabase();
@@ -302,13 +302,13 @@ PBConstraint PBFuzzer::generatePBProblem(std::vector< PBConstraint> & constraint
       retry = true;
       constraints.pop_back();
     }
-    
+
   }
-  
+
   PBConstraint opt = constraints.back();
   opt.setComparator(LEQ);
   constraints.pop_back();
-  
+
   if(doScramble)
     scramble(constraints);
   return opt;

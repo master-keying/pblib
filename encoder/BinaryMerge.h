@@ -29,16 +29,16 @@ class BinaryMerge : public Encoder
 private:
   int true_lit;
   CardEncoding old_card_encoder;
-  
+
   void binary_merge(const SimplePBConstraint& constraint, ClauseDatabase& formula, AuxVarManager& auxvars, int32_t gac_lit = 0);
-  
+
   void totalizer(std::vector< int32_t > const & input, std::vector< int32_t > & output, ClauseDatabase& formula, AuxVarManager& auxvars); // needed for the watchdog instantiation
   void unary_adder(std::vector< int32_t > const & a, std::vector< int32_t > const & b, std::vector< int32_t > & c, ClauseDatabase& formula, AuxVarManager& auxvars); // needed for the watchdog instantiation
-  
+
 public:
   void encode(const SimplePBConstraint& pbconstraint, ClauseDatabase & formula, AuxVarManager & auxvars);
   int64_t encodingValue(const SimplePBConstraint& pbconstraint);
-  
+
   BinaryMerge(PBConfig & config);
 };
 

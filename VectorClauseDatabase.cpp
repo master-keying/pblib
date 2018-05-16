@@ -41,7 +41,7 @@ void VectorClauseDatabase::addClauseIntern(const vector< int32_t >& clause)
 }
 
 
-vector< vector< int32_t > > const & VectorClauseDatabase::getClauses() 
+vector< vector< int32_t > > const & VectorClauseDatabase::getClauses()
 {
   return *clauses;
 }

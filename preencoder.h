@@ -20,7 +20,7 @@ private:
     void init_and_normalize(PBCon const & pbconstraint, ClauseDatabase& formula);
     void check_for_trivial_constraints(ClauseDatabase& formula);
     void sort_literals();
-    
+
     std::vector<PBLib::WeightedLit> literals;
     std::vector<int32_t> clause;
     int64_t max_weight;
@@ -34,14 +34,14 @@ private:
     int64_t leq;
     int64_t geq;
     PBLib::Comparator comparator;
-    
+
     PBConfig config;
     statistic * stats;
     bool private_stats;
 public:
     PreEncoder(PBConfig config, statistic * stats = 0);
     virtual ~PreEncoder();
-    
+
     // after preencoding the following constraints hold for the returned SimplePBConstraint:
     /// all weights > 0
     /// non trivial constraint
@@ -49,9 +49,9 @@ public:
     /// no literal duplicates
     SimplePBConstraint preEncodePBConstraint(PBLib::PBConstraint const & pbconstraint, ClauseDatabase & formula);
     std::shared_ptr<IncSimplePBConstraint> preEncodeIncPBConstraint(IncPBConstraint & pbconstraint, ClauseDatabase& formula);
-    
-    
-    
+
+
+
 };
 
 #endif // PREENCODER_H

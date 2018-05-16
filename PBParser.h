@@ -3,19 +3,19 @@
 
 /*=============================================================================
  * parser for pseudo-Boolean instances
- * 
+ *
  * Copyright (c) 2005-2007 Olivier ROUSSEL and Vasco MANQUINHO
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -69,10 +69,10 @@ private:
 	std::vector<int64_t>  w;
 	int64_t maxSum;
 	std::set<int32_t> varsInPB;
-	
+
 	std::vector< std::vector<int32_t> > realPB;
 	std::vector< PBLib::WeightedLit> tmpVars;
-    
+
 public:
 	std::vector< PBLib::PBConstraint > & getConstraints() {return constraints;}
 	std::set<int32_t> & getUnits() { return units;}
@@ -95,7 +95,7 @@ public:
 	 */
 	void beginObjective()
 	{
-	  
+
 		isObtInstance = true;
 		k = 0;
 		x.clear();
@@ -110,7 +110,7 @@ public:
 	  std::vector<PBLib::WeightedLit> vars;
 	  for (int i = 0; i < (int)x.size(); ++i)
 		  vars.push_back(PBLib::WeightedLit(x[i], w[i]));
-	  
+
 	  obt_constraint = PBLib::PBConstraint(vars, PBLib::LEQ, 0);
 	}
 
@@ -153,8 +153,8 @@ public:
 	    exit(-1);
 	  }
 	}
-	
-	int32_t getNewSymbole() 
+
+	int32_t getNewSymbole()
 	{
 		maxVarId++;
 		return maxVarId;
@@ -178,12 +178,12 @@ public:
 	{
 		assert(x.size() == w.size());
 		assert(x.size() != 0);
-		
+
 		vars.clear();
 		for (int i = 0; i < (int)x.size(); ++i)
 		  vars.push_back(PBLib::WeightedLit(x[i], w[i]));
-		
-		
+
+
 		if (comparator == PBLib::BOTH)
 		  constraints.push_back(PBLib::PBConstraint(vars, comparator, k, k2));
 		else
@@ -195,7 +195,7 @@ public:
 		tmpVars.clear();
 		for (int i = 0; i < (int) lits.size(); ++i)
 			tmpVars.push_back(PBLib::WeightedLit(-lits[i], 1));
-		
+
 		constraints.push_back(PBLib::PBConstraint(tmpVars, PBLib::LEQ, lits.size() - 1));
 	}
 	/**
@@ -221,7 +221,7 @@ public:
 	{
 		int32_t lit = getNewSymbole();
 		linearizeProduct(lit , list);
-		
+
 		constraintTerm(coeff, lit);
 	}
 
@@ -251,7 +251,7 @@ public:
 		k = val;
 		k2 = val;
 	}
-	
+
 	void constraintSecRightTerm(int64_t val)
 	{
 		k2 = val;
@@ -282,7 +282,7 @@ public:
 			lits.pop_back();
 		}
 	}
-	
+
 	DefaultCallback() : isObtInstance(false) {}
 
 };
@@ -399,7 +399,7 @@ private:
 	 * add the constraints which define all product terms
 	 *
 	 */
-	void defineProductVariableRec(Callback &cb, 
+	void defineProductVariableRec(Callback &cb,
 			std::vector<ProductNode> &nodes, std::vector<int> &list)
 	{
 		for(uint i=0;i<nodes.size();++i)
@@ -574,7 +574,7 @@ private:
 			s=">=";
 			return true;
 		}
-		
+
 		if (c=='B')
 		{
 			s="B";
@@ -685,9 +685,9 @@ private:
 		  ok = false;
 		  std::cerr << "error after reading 64bit value. Bigger coefficients cannot be handled yet." << std::endl;
 		}
-		
-		
-		
+
+
+
 		skipSpaces();
 
 		while(readIdentifier(list));
@@ -756,7 +756,7 @@ private:
 	 */
 	void readConstraint()
 	{
-	  
+
 		std::string s;
 		char c;
 
@@ -802,13 +802,13 @@ private:
 
 		in >> coeff;
 		cb.constraintRightTerm(coeff);
-		
+
 		if (s == "B")
 		{
 		  in >> coeff;
 		  cb.constraintSecRightTerm(coeff);
 		}
-		  
+
 
 		skipSpaces();
 		c=get();
@@ -912,13 +912,13 @@ public:
 			readConstraint();
 			nbConstraintsRead++;
 		}
-		
+
 		if (!ok)
 		{
 		  std::cerr << "c error during parsing .. stoped" << std::endl;
 		  return;
 		}
-		
+
 		if (nbConstraintsRead != nbConstr)
 		{
 		  //Small check on the number of constraints

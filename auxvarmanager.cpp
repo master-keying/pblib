@@ -14,7 +14,7 @@ void AuxVarManager::resetAuxVarsTo(int32_t new_first_free_variable)
     variable_offset = new_first_free_variable;
 
 	// removing all variables from free variables that are obsolet now
-    for (auto it = free_variables.begin(); it != free_variables.end(); ) 
+    for (auto it = free_variables.begin(); it != free_variables.end(); )
 	{
         if (*it >= variable_offset)
 		{
@@ -55,17 +55,17 @@ int32_t AuxVarManager::getVariable()
     variable_offset++;
     if (rememberedVariables != nullptr)
       rememberedVariables->push_back(var);
-    
+
     return var;
   }
-  
-  
+
+
   var = *free_variables.begin();
   free_variables.erase(free_variables.begin());
-  
+
   if (rememberedVariables != nullptr)
       rememberedVariables->push_back(var);
-  
+
   return var;
 }
 

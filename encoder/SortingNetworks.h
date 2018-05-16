@@ -19,7 +19,7 @@ class SortingNetworks : public Encoder
 {
 private:
 //   int true_lit;
-  
+
   std::vector<int> primes = { 2, 3, 5, 7, 11, 13, 17 };
 
  inline void cmp2(std::vector<Formula>& fs, int begin)
@@ -78,10 +78,10 @@ void oddEvenSort(std::vector<Formula>& fs)
 {
     int orig_sz = fs.size();
     int sz; for (sz = 1; sz < fs.size(); sz *= 2);
-    
+
     if (fs.size() < sz)
       fs.resize(sz,_false_);
-    
+
 
     for (int i = 1; i < fs.size(); i *= 2)
         for (int j = 0; j + 2*i <= fs.size(); j += 2*i)
@@ -322,7 +322,7 @@ Formula buildConstraint(std::vector<Formula>& ps, std::vector<int64_t>& Cs, std:
     std::vector<Formula> carry;
     std::vector<std::vector<Formula> > digits;
     buildConstraint(ps, Cs, carry, base, 0, digits);
-    
+
 
     std::vector<int> lo_digs;
     std::vector<int> hi_digs;
@@ -389,19 +389,19 @@ Formula buildConstraint(const SimplePBConstraint& c)
     int      cost;
     std::vector<int> base;
     optimizeBase(Cs, dummy, cost, base);
-    
+
 
     Formula ret;
     if (c.getComparator() == PBLib::BOTH)
       ret = buildConstraint(ps, Cs, base, c.getGeq(), c.getLeq());
     else
       ret = buildConstraint(ps, Cs, base, INT_MIN, c.getLeq());
-    
+
     return ret;
 }
-  
-  
-  
+
+
+
 public:
   SortingNetworks(PBConfig & config);
   int64_t encodingValue(const SimplePBConstraint& pbconstraint);

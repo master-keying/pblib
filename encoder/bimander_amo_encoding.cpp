@@ -10,12 +10,12 @@ ostream & operator<< (ostream & out, vector<T> & vec)
     cout << "{ }";
     return out;
   }
-  
+
   out << "{ " << vec[0];
-    
+
   for (int i = 1; i < vec.size(); ++i)
     out << ", " << vec[i];
-  
+
   out << " }";
   return out;
 }
@@ -25,7 +25,7 @@ int64_t Bimander_amo_encoding::encodingValue(const SimplePBConstraint& pbconstra
 {
   int m = config->bimander_m;
   int n = pbconstraint.getN();
-  
+
   if (config->bimander_m_is == BIMANDER_M_IS::FIXED)
     m = config->bimander_m;
   else if (config->bimander_m_is == BIMANDER_M_IS::N_HALF)
@@ -34,20 +34,20 @@ int64_t Bimander_amo_encoding::encodingValue(const SimplePBConstraint& pbconstra
     m = ceil (sqrt((double)n));
   else
     m = config->bimander_m;
-  
-  
+
+
   int64_t clauses = ceil((double) (n*n) / (double) (2*m)) + n * ceil(log2(m)) - ceil ((double)n/2); // from the paper .. seems to overestimating .. FIXME
   int64_t auxvars = ceil(log2(m));
-  
+
   return valueFunction(clauses, auxvars);
 }
 
 
 void Bimander_amo_encoding::encode_intern(vector< Lit >& literals, ClauseDatabase& formula, AuxVarManager& auxvars)
 {
-  
+
   int n = literals.size();
-  
+
   if (config->bimander_m_is == BIMANDER_M_IS::FIXED)
     m = config->bimander_m;
   else if (config->bimander_m_is == BIMANDER_M_IS::N_HALF)
@@ -56,7 +56,7 @@ void Bimander_amo_encoding::encode_intern(vector< Lit >& literals, ClauseDatabas
     m = ceil (sqrt((double)n));
   else
     m = config->bimander_m;
-  
+
 
   assert(m > 0);
   // create the m groups
@@ -79,22 +79,22 @@ void Bimander_amo_encoding::encode_intern(vector< Lit >& literals, ClauseDatabas
   assert(ig == m);
   assert(m == groups.size());
   assert(i == literals.size());
-  
+
 
   for (int i = 0; i < groups.size(); ++i)
   {
     naive_amo_encoder.encode_intern(groups[i], formula);
   }
 
-  
+
   bits.clear();
   nBits = ceil(log2(m));
   two_pow_nbits = pow(2,nBits);
   k = (two_pow_nbits - m) * 2; // k is the number of literals that share a bit because of redundancy
-  
+
   for (int i = 0; i < nBits; ++i)
     bits.push_back(auxvars.getVariable());
-  
+
   int gray_code;
   int next_gray;
   i = 0;
@@ -127,8 +127,8 @@ void Bimander_amo_encoding::encode_intern(vector< Lit >& literals, ClauseDatabas
       // else skip that bit since it is redundant
     }
   }
-  
-  
+
+
   for (; i < two_pow_nbits; ++i)
   {
     index++;
@@ -161,11 +161,11 @@ void Bimander_amo_encoding::encode(const SimplePBConstraint& pbconstraint, Claus
 
   if (config->print_used_encodings)
     cout << "c encode with bimander amo" << endl;
-  
+
   assert(pbconstraint.getLeq() == 1);
 
   _literals.clear();
-  
+
   for (int i = 0; i < (int) pbconstraint.getN(); ++i)
     _literals.push_back(pbconstraint.getWeightedLiterals()[i].lit);
 
@@ -175,7 +175,7 @@ void Bimander_amo_encoding::encode(const SimplePBConstraint& pbconstraint, Claus
     assert(pbconstraint.getGeq() == 1 && pbconstraint.getLeq() == 1);
     formula.addClause(_literals);
   }
-  
+
   encode_intern(_literals, formula, auxvars);
   for (int i = 0; i < pbconstraint.getConditionals().size(); ++i)
     formula.getConditionals().pop_back();
@@ -185,7 +185,7 @@ void Bimander_amo_encoding::encode(const SimplePBConstraint& pbconstraint, Claus
 
 Bimander_amo_encoding::Bimander_amo_encoding(PBConfig& config) : Encoder(config), naive_amo_encoder(config)
 {
-   
+
 }
 
 Bimander_amo_encoding::~Bimander_amo_encoding()

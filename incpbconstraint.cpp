@@ -43,7 +43,7 @@ IncPBConstraint::IncPBConstraint(vector<WeightedLit> const & literals, Comparato
   {
     init_leq = leq = bound;
   }
-  else 
+  else
   {
     assert(comparator == GEQ);
     init_geq = geq = bound;
@@ -90,12 +90,12 @@ void IncPBConstraint::encodeNewGeq(int64_t newGeq, ClauseDatabase& formula, AuxV
     return;
 
   geq = newGeq;
-  
+
   if (isDualEncoded)
   {
     assert(comparator == BOTH);
     assert(geq_inc_simple_pb_constraint->getComparator() == LEQ);
-    geq_inc_simple_pb_constraint->encodeNewLeq(-geq, formula, auxVars); // we encode GEQ as LEQ internaly 
+    geq_inc_simple_pb_constraint->encodeNewLeq(-geq, formula, auxVars); // we encode GEQ as LEQ internaly
   }
   else
   {
@@ -104,7 +104,7 @@ void IncPBConstraint::encodeNewGeq(int64_t newGeq, ClauseDatabase& formula, AuxV
     else
     {
       assert(comparator == GEQ);
-      inc_simple_pb_constraint->encodeNewLeq(-geq, formula, auxVars); // we encode GEQ as LEQ internaly 
+      inc_simple_pb_constraint->encodeNewLeq(-geq, formula, auxVars); // we encode GEQ as LEQ internaly
     }
   }
 }
@@ -115,7 +115,7 @@ void IncPBConstraint::encodeNewLeq(int64_t newLeq, ClauseDatabase& formula, AuxV
     return;
 
   leq = newLeq;
-  
+
   if (isDualEncoded)
   {
     assert(comparator == BOTH);
@@ -170,14 +170,14 @@ void IncPBConstraint::print() const
       cout << "TRUE" << endl;
     return;
   }
-  
+
   if (conditionals.size() > 0)
   {
       if (stderr)
 	cerr << "[";
       else
 	cout << "[";
-      
+
     for (int i = 0; i < conditionals.size(); ++i)
     {
       if (stderr)
@@ -185,13 +185,13 @@ void IncPBConstraint::print() const
       else
 	cout << conditionals[i] << ",";
     }
-    
+
     if (stderr)
 	cerr << "] => ";
       else
 	cout << "] => ";
   }
-  
+
   for (int i = 0; i < getN(); ++i)
   {
     if (i < getN() - 1)
@@ -213,8 +213,8 @@ void IncPBConstraint::print() const
 	else cout << weighted_literals[getN() - 1].weight << " x" << weighted_literals[getN() - 1].lit;
     }
   }
-  
-  
+
+
   if (comparator == LEQ)
     if(stderr) cerr << " =< " << leq << endl;
     else cout << " =< " << leq << endl;
@@ -224,7 +224,7 @@ void IncPBConstraint::print() const
   else
     if(stderr) cerr << " >= " << geq << " =< " << leq << endl;
     else cout << " >= " << geq << " =< " << leq << endl;
-  
+
 }
 
 void IncPBConstraint::addConditional(int32_t lit)

@@ -6,12 +6,12 @@ void SortingNetworks::encode(const SimplePBConstraint& pbconstraint, ClauseDatab
 {
   if (config->print_used_encodings)
       cout << "c encode with sorting networks" << endl;
- 
-  
+
+
   formula.addConditionals(pbconstraint.getConditionals());
-  
+
   formula.addFormula(buildConstraint(pbconstraint), auxvars);
-  
+
   for (int i = 0; i < pbconstraint.getConditionals().size(); ++i)
     formula.getConditionals().pop_back();
 }

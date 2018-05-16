@@ -23,7 +23,7 @@ Formula FormulaClass::newITE(const Formula& s, const Formula& t, const Formula& 
       const uint64_t hb = td & fd;
       const uint64_t hc = fd ^ sd;
       hash = ((sd & 3) ^ (td & 3) ^ (fd & 3)) ^ (ha << 2) ^ (hb << 16) ^ (hc << 32);
-      
+
       it = formula_cache.find(hash);
       if (it != formula_cache.end())
       {
@@ -34,14 +34,14 @@ Formula FormulaClass::newITE(const Formula& s, const Formula& t, const Formula& 
 	}
       }
     }
-    
+
     nodes.clear();
     nodes.push_back(s);
     nodes.push_back(t);
     nodes.push_back(f);
-    
+
     Formula result = std::make_shared<FormulaClass>(32, nodes);
-    
+
     if (config->use_formula_cache)
       formula_cache[hash].push_back(result);
     return result;
@@ -50,7 +50,7 @@ Formula FormulaClass::newITE(const Formula& s, const Formula& t, const Formula& 
 void printFormula(Formula f)
 {
   using namespace std;
-  
+
   if (f == _true_)
     cout << "True";
   else if (f == _false_)
@@ -101,7 +101,7 @@ void printFormula(Formula f)
   {
     cout << "CANNOT PRINT NODE";
   }
-  
+
 }
 
 void printFormulaBits(Formula f)
@@ -113,7 +113,7 @@ void printFormulaBits(Formula f)
       std::cout << "1";
     else
       std::cout << "0";
-    
+
   }
   std::cout << std::endl << "c data" << std::endl << "c ";
   for (int i = 0; i < 32; ++i)
@@ -129,13 +129,13 @@ void printFormulaBits(Formula f)
 Formula operator ~ (Formula const & f) {
   if (f == _true_)
     return _false_;
-  
+
   if (f == _false_)
     return _true_;
-  
+
   if (f == _undef_)
     return _undef_;
-  
+
   return FormulaClass::newNeg(f);
 }
 
@@ -144,7 +144,7 @@ Formula AND (std::vector<Formula> & conjuncts)
   for (int i = 0; i < conjuncts.size(); ++i) {
     if (conjuncts[i] == _false_)
       return _false_;
-    
+
     if (conjuncts[i] == _true_)
     {
       conjuncts[i] = conjuncts[conjuncts.size() - 1];
@@ -153,16 +153,16 @@ Formula AND (std::vector<Formula> & conjuncts)
       continue;
     }
   }
-  
+
   if (conjuncts.size() == 0)
     return _true_;
-  
+
   if (conjuncts.size() == 1)
     return conjuncts[0];
-  
+
   if (conjuncts.size() == 2)
     return AND(conjuncts[0], conjuncts[1]);
-  
+
   return FormulaClass::newAND(conjuncts);
 }
 
@@ -193,12 +193,12 @@ Formula XOR (Formula f, Formula g)
     if (g < f)
       swap(f,g);
 
-      
+
     if (isNeg(f) == isNeg(g))
       return FormulaClass::newEquiv(noNeg(f), ~ noNeg(g));
     else
       return FormulaClass::newEquiv(noNeg(f), noNeg(g));
-    
+
 }
 
 Formula FAs(Formula x, Formula y, Formula c) // XOR of 3 arguments: x # y # c
@@ -233,7 +233,7 @@ Formula FAs(Formula x, Formula y, Formula c) // XOR of 3 arguments: x # y # c
       return ~FormulaClass::newFAs(x, y, c);
     else
       return FormulaClass::newFAs(x, y, c);
-    
+
 }
 
 
@@ -281,7 +281,7 @@ Formula ITE(Formula s, Formula t, Formula f)
         swap(t, f);
         s = ~s;
     }
-    
+
 
       if (isNeg(f))
 	return ~FormulaClass::newITE(s, ~t, ~f);

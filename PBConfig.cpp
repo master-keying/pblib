@@ -22,13 +22,13 @@ void statistic::printStatisticRelative()
   cout << "c amo: "  << (double)num_amo / sum<< " amk: " << (double)num_amk / sum << " pb: " << (double)num_pb / sum
        << " clause: " << (double)num_clause / sum << " trivial: " << (double)num_trivial / sum << endl;
 //   cout << "c encodings: " << endl;
-//   cout << "c amo: " << (double)num_amo_encodings / sum_encodings << " card: " << (double)num_card_encodings / sum_encodings 
+//   cout << "c amo: " << (double)num_amo_encodings / sum_encodings << " card: " << (double)num_card_encodings / sum_encodings
 //        << " bdd: " << ((double)num_bdd_clause_encodings + (double)num_bdd_gates_encodings) / sum_encodings
 //        << " adder: " << (double)num_adder_encodings / sum_encodings << endl;
 }
 
 
-PBConfigClass::PBConfigClass() 
+PBConfigClass::PBConfigClass()
 {
 
 }

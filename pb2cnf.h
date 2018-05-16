@@ -50,16 +50,16 @@ private:
 
     PB2CNF(const PB2CNF& other) = delete;
     virtual bool operator==(const PB2CNF& other) const = delete;
-    
+
     bool encodeWithBestEncoder(std::vector<Encoder*> encoders, SimplePBConstraint & constraint, ClauseDatabase& formula, AuxVarManager& auxVars);
     bool encodeWithBestEncoder(std::vector<Encoder*> encoders, std::shared_ptr< IncSimplePBConstraint > constraint, ClauseDatabase& formula, AuxVarManager& auxVars);
-    
+
     void encode_inc_with_adder(std::shared_ptr< IncSimplePBConstraint > constraint, ClauseDatabase& formula, AuxVarManager& auxVars);
     void encode_inc_with_card(std::shared_ptr< IncSimplePBConstraint > constraint, ClauseDatabase& formula, AuxVarManager& auxVars);
     void encode_inc_with_swc(std::shared_ptr< IncSimplePBConstraint > constraint, ClauseDatabase& formula, AuxVarManager& auxVars);
     void encode_inc_amk(std::shared_ptr< IncSimplePBConstraint > constraint, IncPBConstraint& incPbconstraint, ClauseDatabase& formula, AuxVarManager& auxVars);
     void encode_inc_pb(std::shared_ptr< IncSimplePBConstraint > constraint, IncPBConstraint& incPbconstraint, ClauseDatabase& formula, AuxVarManager& auxVars);
-    
+
     void encode_with_adder(SimplePBConstraint & constraint, ClauseDatabase& formula, AuxVarManager& auxVars);
     void encode_with_card(SimplePBConstraint & constraint, ClauseDatabase& formula, AuxVarManager& auxVars);
     void encode_with_bdd(SimplePBConstraint & constraint, ClauseDatabase& formula, AuxVarManager& auxVars);
@@ -68,19 +68,19 @@ private:
     void encode_amo(SimplePBConstraint & constraint, ClauseDatabase& formula, AuxVarManager& auxVars);
     void encode_amk(SimplePBConstraint & constraint, ClauseDatabase& formula, AuxVarManager& auxVars);
     void encode_pb(SimplePBConstraint & constraint, ClauseDatabase& formula, AuxVarManager& auxVars);
-	
+
 	bool try_to_encode_in_threshold(SimplePBConstraint& constraint, ClauseDatabase& formula, AuxVarManager& auxVars, int clause_threshold);
-    
-    
+
+
 public:
 //     PB2CNF(PBConfig & config);
     PB2CNF(PBConfig & config, statistic * stats = 0);
-    PB2CNF(); 
+    PB2CNF();
     virtual ~PB2CNF();
 
     int32_t encodeAtMostK(const std::vector< int32_t >& literals, int64_t k, std::vector< std::vector< int32_t > >& formula, int32_t firstAuxiliaryVariable);
     int32_t encodeAtLeastK(const std::vector<int32_t> & literals, int64_t k, std::vector<std::vector<int32_t> > & formula, int32_t firstAuxiliaryVariable);
-    
+
     int32_t encodeLeq(const std::vector< int64_t >& weights, const std::vector< int32_t >& literals, int64_t leq, std::vector< std::vector< int32_t > >& formula, int32_t firstAuxiliaryVariable);
     int32_t encodeGeq(const std::vector< int64_t >& weights, const std::vector< int32_t >& literals, int64_t geq, std::vector< std::vector< int32_t > >& formula, int32_t firstAuxiliaryVariable);
     int32_t encodeBoth(const std::vector< int64_t >& weights, const std::vector< int32_t >& literals, int64_t leq, int64_t geq, std::vector< std::vector< int32_t > >& formula, int32_t firstAuxiliaryVariable);

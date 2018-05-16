@@ -18,7 +18,7 @@ struct statistic
     int num_amo = 0;
     int num_amk = 0;
     int num_pb = 0;
-    
+
     void printStatistic();
     void printStatisticRelative();
   };
@@ -27,7 +27,7 @@ namespace BIMANDER_M_IS
 {
 enum BIMANDER_M_IS  {N_HALF, N_SQRT, FIXED};
 };
-  
+
 namespace AMO_ENCODER
 {
 enum PB2CNF_AMO_Encoder {BEST, NESTED, BDD, BIMANDER, COMMANDER, KPRODUCT, BINARY, PAIRWISE};
@@ -66,18 +66,18 @@ public:
     bool use_recursive_bdd_test = false;
     bool use_real_robdds = true;
     bool use_watch_dog_encoding_in_binary_merger = false;
-    
+
     std::string debug_value = "";
     bool just_approximate = false;
     int64_t approximate_max_value = 1000;
     std::set<std::string> cmd_line_options;
-    
+
     PBConfigClass();
     virtual ~PBConfigClass();
-    
+
     std::string config_name = "";
-    
+
 };
 
-typedef std::shared_ptr<PBConfigClass> PBConfig;    
+typedef std::shared_ptr<PBConfigClass> PBConfig;
 #endif // PBCONFIG_H

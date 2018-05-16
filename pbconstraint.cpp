@@ -56,7 +56,7 @@ int64_t PBConstraint::getMaxSum() const
   for (int i = 0; i < weighted_literals.size(); ++i)
     if (weighted_literals[i].weight >= 0)
       maxsum += weighted_literals[i].weight;
-    
+
   return maxsum;
 }
 
@@ -66,7 +66,7 @@ int64_t PBConstraint::getMinSum() const
   for (int i = 0; i < weighted_literals.size(); ++i)
     if (weighted_literals[i].weight < 0)
       minsum += weighted_literals[i].weight;
-    
+
   return minsum;
 }
 
@@ -77,7 +77,7 @@ Comparator PBConstraint::getComparator() const
   return comparator;
 }
 
-PBConstraint PBConstraint::getGeqConstraint() const 
+PBConstraint PBConstraint::getGeqConstraint() const
 {
   assert(comparator == BOTH);
   PBConstraint c(weighted_literals, GEQ, geq);
@@ -95,7 +95,7 @@ PBConstraint PBConstraint::getLeqConstraint() const
 
 PBConstraint::PBConstraint() :  comparator(LEQ), leq(0), geq(0)
 {
-  
+
 }
 
 PBConstraint::PBConstraint(vector<WeightedLit> const & literals, Comparator comparator, int64_t less_eq, int64_t greater_eq) : weighted_literals(literals), comparator(comparator), leq(less_eq), geq(greater_eq)
@@ -115,7 +115,7 @@ PBConstraint::PBConstraint(vector<WeightedLit> const & literals, Comparator comp
     assert(comparator == BOTH);
     geq = leq = bound;
   }
-  
+
 }
 
 int64_t PBConstraint::getGeq() const
@@ -133,7 +133,7 @@ vector< WeightedLit > const & PBConstraint::getWeightedLiterals() const
   return weighted_literals;
 }
 
-vector< WeightedLit > & PBConstraint::getWeightedLiterals() 
+vector< WeightedLit > & PBConstraint::getWeightedLiterals()
 {
   return weighted_literals;
 }
@@ -150,7 +150,7 @@ bool PBConstraint::operator==(const PBConstraint& other) const
 }
 
 
-//TODO rewrite print functions ... 
+//TODO rewrite print functions ...
 
 void PBConstraint::print(bool stderr) const
 {
@@ -163,14 +163,14 @@ void PBConstraint::print(bool stderr) const
       cout << "TRUE" << endl;
     return;
   }
-  
+
   if (conditionals.size() > 0)
   {
       if (stderr)
 	cerr << "[";
       else
 	cout << "[";
-      
+
     for (int i = 0; i < conditionals.size(); ++i)
     {
       if (stderr)
@@ -178,13 +178,13 @@ void PBConstraint::print(bool stderr) const
       else
 	cout << conditionals[i] << ",";
     }
-    
+
     if (stderr)
 	cerr << "] => ";
       else
 	cout << "] => ";
   }
-  
+
   for (int i = 0; i < getN(); ++i)
   {
     if (i < getN() - 1)
@@ -206,8 +206,8 @@ void PBConstraint::print(bool stderr) const
 	else cout << weighted_literals[getN() - 1].weight << " x" << weighted_literals[getN() - 1].lit;
     }
   }
-  
-  
+
+
   if (comparator == LEQ)
     if(stderr) cerr << " =< " << leq << endl;
     else cout << " =< " << leq << endl;
@@ -217,7 +217,7 @@ void PBConstraint::print(bool stderr) const
   else
     if(stderr) cerr << " >= " << geq << " =< " << leq << endl;
     else cout << " >= " << geq << " =< " << leq << endl;
-  
+
 }
 
 void PBConstraint::printGeq(bool stderr) const
@@ -227,7 +227,7 @@ void PBConstraint::printGeq(bool stderr) const
     print();
     return;
   }
-  
+
   if (getN() == 0)
   {
     if (stderr)
@@ -236,10 +236,10 @@ void PBConstraint::printGeq(bool stderr) const
       cout << "TRUE" << endl;
     return;
   }
-  
+
   if (stderr) cerr << "-";
   else  cout << "-";
-  
+
   for (int i = 0; i < getN(); ++i)
   {
     if (i < getN() - 1)
@@ -261,14 +261,14 @@ void PBConstraint::printGeq(bool stderr) const
 	else cout << weighted_literals[getN() - 1].weight << " x" << weighted_literals[getN() - 1].lit;
     }
   }
-  
-  
+
+
   assert(comparator == LEQ);
-  
+
   if(stderr) cerr << " >= " << -leq << " ;" << endl;
   else cout << " >= " << -leq << " ;" << endl;
-  
-  
+
+
 }
 
 void PBConstraint::printNoNL(bool stderr) const
@@ -281,7 +281,7 @@ void PBConstraint::printNoNL(bool stderr) const
       cout << "TRUE" << " ";
     return;
   }
-  
+
   for (int i = 0; i < getN(); ++i)
   {
     if (i < getN() - 1)
@@ -303,8 +303,8 @@ void PBConstraint::printNoNL(bool stderr) const
 	else cout << weighted_literals[getN() - 1].weight << " x" << weighted_literals[getN() - 1].lit;
     }
   }
-  
-  
+
+
   if (comparator == LEQ)
     if(stderr) cerr << " =< " << leq << " ";
     else cout << " =< " << leq << " ";
@@ -314,5 +314,5 @@ void PBConstraint::printNoNL(bool stderr) const
   else
     if(stderr) cerr << " >= " << geq << " =< " << leq << " ";
     else cout << " >= " << geq << " =< " << leq << " ";
-  
+
 }
