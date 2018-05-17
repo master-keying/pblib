@@ -1,0 +1,3 @@
+[submodule "BasicPBSolver/minisat"]
+	path = BasicPBSolver/minisat
+	url = https://github.com/master-keying/minisat.git

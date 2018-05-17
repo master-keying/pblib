@@ -4,15 +4,10 @@
 #include <time.h>
 #include <sys/resource.h>
 
-// PBLib
-// #include "incpbconstraint.h"
-// #include "PBConfig.h"
-#include "PBParser.h"
-#include "pb2cnf.h"
-#include "VectorClauseDatabase.h"
+#include "../PBParser.h"
+#include "../pb2cnf.h"
+#include "../VectorClauseDatabase.h"
 #include "SATSolverClauseDatabase.h"
-#include <sys/time.h>
-// MiniSAT
 #include "BasicSATSolver.h"
 
 
