@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.5)
 project(PBlib VERSION 1.2.1 LANGUAGES CXX)
 
+# options
+option(PBLIB_OSX_VIRTUAL_DESTRUCTOR_WORKAROUND
+    "Hotfix for an older versions of Clang on OS-X" OFF)
+
 # Force C++11, also disable GNU extensions
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -51,6 +55,7 @@ set(PBLIB_SOURCE_FILES
     clausedatabase.cpp
     formula.cpp
     helper.cpp
+    hotfixes.cpp
     incpbconstraint.cpp
     IncrementalData.cpp
     IncSimplePBConstraint.cpp
@@ -88,6 +93,10 @@ target_include_directories(pblib PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
+
+if(PBLIB_OSX_VIRTUAL_DESTRUCTOR_WORKAROUND)
+    target_compile_definitions( pblib PRIVATE PBLIB_OSX_VIRTUAL_DESTRUCTOR_WORKAROUND )
+endif()
 
 # executables
 add_executable(pbo2maxsat pbo2maxsat.cpp)

@@ -15,7 +15,10 @@ matrix:
     - os: osx
       osx_image: xcode9.1
       compiler: clang
-      env: COMPILER='clang++'
+      env:
+        - COMPILER='clang++'
+        - PBLIB_OSX_VIRTUAL_DESTRUCTOR_WORKAROUND=on
+
 
 install:
   - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
@@ -35,7 +38,7 @@ before_script:
   - cd ${TRAVIS_BUILD_DIR}
 
 script:
-  - cmake -H. -BBuild-Debug -DCMAKE_BUILD_TYPE=Debug
+  - cmake -H. -BBuild-Debug -DCMAKE_BUILD_TYPE=Debug -DPBLIB_OSX_VIRTUAL_DESTRUCTOR_WORKAROUND=${PBLIB_OSX_VIRTUAL_DESTRUCTOR_WORKAROUND}
   - make -C Build-Debug -j2
-  - cmake -H. -BBuild-Release -DCMAKE_BUILD_TYPE=Release
+  - cmake -H. -BBuild-Release -DCMAKE_BUILD_TYPE=Release -DPBLIB_OSX_VIRTUAL_DESTRUCTOR_WORKAROUND=${PBLIB_OSX_VIRTUAL_DESTRUCTOR_WORKAROUND}
   - make -C Build-Release -j2
