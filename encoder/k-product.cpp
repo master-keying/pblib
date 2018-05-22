@@ -1,5 +1,7 @@
 #include "k-product.h"
 
+#include <cmath>
+
 using namespace std;
 
 // TODO implement an iterative (non-recursive) encoding  ... is this necessary? TODO performance check

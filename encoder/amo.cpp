@@ -1,5 +1,7 @@
 #include "amo.h"
 
+#include <cmath>
+
 using namespace std;
 
 void AMO_Encoder::encode_intern(vector< Lit >& literals, ClauseDatabase& formula, AuxVarManager& auxvars)

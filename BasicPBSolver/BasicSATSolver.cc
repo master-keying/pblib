@@ -132,24 +132,3 @@ void BasicSATSolver::printModel()
   }
   cout << endl;
 }
-
-
-BasicSATSolver::BasicSATSolver()
-{
-
-}
-
-BasicSATSolver::~BasicSATSolver()
-{
-
-}
-
-
-
-
-#include "BasicSATSolver.h"
-
-
-
-
-

@@ -1,5 +1,7 @@
 #include "commander_encoding.h"
 
+#include <cmath>
+
 using namespace std;
 
 int64_t commander_encoding::encodingValue(const SimplePBConstraint& pbconstraint)

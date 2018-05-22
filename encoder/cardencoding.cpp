@@ -1,6 +1,8 @@
 #include "cardencoding.h"
 #include "sorting_merging.h"
 
+#include <cmath>
+
 using namespace PBLib;
 using namespace std;
 CardEncoding::CardIncData::~CardIncData()

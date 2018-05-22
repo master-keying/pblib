@@ -18,9 +18,9 @@ private:
     long units = 0;
     int tmp;
 public:
-    BasicSATSolver();
+    BasicSATSolver() = default;
     BasicSATSolver(const BasicSATSolver& other) = delete;
-    virtual ~BasicSATSolver();
+    virtual ~BasicSATSolver() = default;
     virtual bool operator==(const BasicSATSolver& other) const = delete;
 
     using Minisat::Solver::addClause;

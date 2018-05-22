@@ -1,5 +1,7 @@
 #include "binary_amo.h"
 
+#include <cmath>
+
 using namespace std;
 
 void Binary_AMO_Encoder::encode_intern(vector< int32_t >& literals, ClauseDatabase & formula, AuxVarManager & auxvars)
