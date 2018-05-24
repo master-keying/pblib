@@ -3,12 +3,12 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "pb2cnf.h"
-#include "PBFuzzer.h"
-#include "helper.h"
+#include <pblib/pb2cnf.h>
+#include <pblib/PBFuzzer.h>
+#include <pblib/helper.h>
 
-#include "BasicPBSolver/BasicSATSolver.h"
-#include "BasicPBSolver/SATSolverClauseDatabase.h"
+#include "BasicSATSolver.h"
+#include "SATSolverClauseDatabase.h"
 
 
 using namespace std;

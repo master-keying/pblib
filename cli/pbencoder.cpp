@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "PBParser.h"
-#include "pb2cnf.h"
+#include <pblib/PBParser.h>
+#include <pblib/pb2cnf.h>
 
 using namespace std;
 using namespace PBLib;

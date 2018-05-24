@@ -11,78 +11,42 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 # load the MiniSat library
-add_subdirectory(BasicPBSolver/minisat EXCLUDE_FROM_ALL)
+add_subdirectory(cli/minisat EXCLUDE_FROM_ALL)
 # load default installation directories
 include(GNUInstallDirs)
 
-# pblib
-set(PBLIB_HEADER_FILES
-    auxvarmanager.h
-    clausedatabase.h
-    formula.h
-    helper.h
-    incpbconstraint.h
-    IncrementalData.h
-    IncSimplePBConstraint.h
-    pb2cnf.h
-    PBConfig.h
-    pbconstraint.h
-    PBFuzzer.h
-    PBParser.h
-    PBSatSolver.h
-    preencoder.h
-    SimplePBConstraint.h
-    VectorClauseDatabase.h
-    weightedlit.h
-    encoder/adderencoding.h
-    encoder/amo.h
-    encoder/bdd.h
-    encoder/BDD_Seq_Amo.h
-    encoder/bimander_amo_encoding.h
-    encoder/binary_amo.h
-    encoder/BinaryMerge.h
-    encoder/cardencoding.h
-    encoder/commander_encoding.h
-    encoder/Encoder.h
-    encoder/k-product.h
-    encoder/naive_amo_encoder.h
-    encoder/sorting_merging.h
-    encoder/SortingNetworks.h
-    encoder/SWC.h
-)
 set(PBLIB_SOURCE_FILES
-    auxvarmanager.cpp
-    clausedatabase.cpp
-    formula.cpp
-    helper.cpp
-    hotfixes.cpp
-    incpbconstraint.cpp
-    IncrementalData.cpp
-    IncSimplePBConstraint.cpp
-    pb2cnf.cpp
-    PBConfig.cpp
-    pbconstraint.cpp
-    PBFuzzer.cpp
-    pbo2maxsat.cpp
-    PBParser.cpp
-    preencoder.cpp
-    SimplePBConstraint.cpp
-    VectorClauseDatabase.cpp
-    encoder/adderencoding.cpp
-    encoder/amo.cpp
-    encoder/bdd.cpp
-    encoder/BDD_Seq_Amo.cpp
-    encoder/bimander_amo_encoding.cpp
-    encoder/binary_amo.cpp
-    encoder/BinaryMerge.cpp
-    encoder/cardencoding.cpp
-    encoder/commander_encoding.cpp
-    encoder/Encoder.cpp
-    encoder/k-product.cpp
-    encoder/naive_amo_encoder.cpp
-    encoder/sorting_merging.cpp
-    encoder/SortingNetworks.cpp
-    encoder/SWC.cpp
+    pblib/auxvarmanager.cpp
+    pblib/clausedatabase.cpp
+    pblib/formula.cpp
+    pblib/helper.cpp
+    pblib/hotfixes.cpp
+    pblib/incpbconstraint.cpp
+    pblib/IncrementalData.cpp
+    pblib/IncSimplePBConstraint.cpp
+    pblib/pb2cnf.cpp
+    pblib/PBConfig.cpp
+    pblib/pbconstraint.cpp
+    pblib/PBFuzzer.cpp
+    pblib/PBParser.cpp
+    pblib/preencoder.cpp
+    pblib/SimplePBConstraint.cpp
+    pblib/VectorClauseDatabase.cpp
+    pblib/encoder/adderencoding.cpp
+    pblib/encoder/amo.cpp
+    pblib/encoder/bdd.cpp
+    pblib/encoder/BDD_Seq_Amo.cpp
+    pblib/encoder/bimander_amo_encoding.cpp
+    pblib/encoder/binary_amo.cpp
+    pblib/encoder/BinaryMerge.cpp
+    pblib/encoder/cardencoding.cpp
+    pblib/encoder/commander_encoding.cpp
+    pblib/encoder/Encoder.cpp
+    pblib/encoder/k-product.cpp
+    pblib/encoder/naive_amo_encoder.cpp
+    pblib/encoder/sorting_merging.cpp
+    pblib/encoder/SortingNetworks.cpp
+    pblib/encoder/SWC.cpp
 )
 
 add_library(pblib ${PBLIB_SOURCE_FILES})
@@ -99,22 +63,27 @@ if(PBLIB_OSX_VIRTUAL_DESTRUCTOR_WORKAROUND)
 endif()
 
 # executables
-add_executable(pbo2maxsat pbo2maxsat.cpp)
+add_executable(pbo2maxsat
+    cli/pbo2maxsat.cpp
+)
 target_link_libraries(pbo2maxsat pblib)
 
-add_executable(pbencoder pbencoder.cpp)
+add_executable(pbencoder
+    cli/pbencoder.cpp
+)
 target_link_libraries(pbencoder pblib)
 
 add_executable(pbsolver
-    BasicPBSolver/main.cpp
-    BasicPBSolver/BasicSATSolver.cc
-    BasicPBSolver/SATSolverClauseDatabase.cpp
+    cli/pbsolver.cpp
+    cli/BasicSATSolver.cc
+    cli/SATSolverClauseDatabase.cpp
 )
 target_link_libraries(pbsolver MiniSat::libminisat pblib)
 
-add_executable(fuzzer fuzzer.cpp
-    BasicPBSolver/BasicSATSolver.cc
-    BasicPBSolver/SATSolverClauseDatabase.cpp
+add_executable(fuzzer
+    cli/fuzzer.cpp
+    cli/BasicSATSolver.cc
+    cli/SATSolverClauseDatabase.cpp
 )
 target_link_libraries(fuzzer MiniSat::libminisat pblib)
 
@@ -134,8 +103,9 @@ install(TARGETS pbo2maxsat pbencoder pbsolver
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
-install(FILES ${PBLIB_HEADER_FILES}
-    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/pblib
+install(DIRECTORY pblib
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+    FILES_MATCHING PATTERN "*.h*"
 )
 
 install(EXPORT PBlibTargets

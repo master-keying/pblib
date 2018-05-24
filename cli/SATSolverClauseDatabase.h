@@ -2,7 +2,7 @@
 #define SATSOLVERCLAUSEDATABASE_H
 
 #include <vector>
-#include "../clausedatabase.h"
+#include "pblib/clausedatabase.h"
 #include "BasicSATSolver.h"
 
 class SATSolverClauseDatabase : public ClauseDatabase

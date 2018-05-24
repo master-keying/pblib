@@ -6,9 +6,9 @@
 // PBLib
 // #include "incpbconstraint.h"
 // #include "PBConfig.h"
-#include "PBParser.h"
-#include "pb2cnf.h"
-#include "VectorClauseDatabase.h"
+#include <pblib/PBParser.h>
+#include <pblib/pb2cnf.h>
+#include <pblib/VectorClauseDatabase.h>
 
 
 using namespace std;
