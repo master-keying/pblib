@@ -58,7 +58,7 @@ private:
   static std::vector<Formula> nodes;
 public:
   static PBConfig config;
-  FormulaClass(int32_t flags, int32_t data, bool isCopyDummy) : flags(flags), data(data)
+  FormulaClass(int32_t flags, int32_t data, bool) : flags(flags), data(data)
   {
     assert( (flags & 2) != 0); // Do NOT use this ctor for compound formulas! You would copy the id!
     assert( flags != 0 || data == 0 || data == 1 || data == 4);
@@ -70,7 +70,7 @@ public:
     assert( flags != 0 || data == 0 || data == 1 || data == 4);
   }
 
-   FormulaClass(int32_t flags, int32_t data, std::vector<Formula> & input_nodes, bool isCopyDummy) : flags(flags), data(data),  input_nodes(input_nodes)
+   FormulaClass(int32_t flags, int32_t data, std::vector<Formula> & input_nodes, bool) : flags(flags), data(data),  input_nodes(input_nodes)
   {
     assert( (flags & 2) == 0);
     assert( flags != 0 || data == 0 || data == 1 || data == 4);
@@ -160,7 +160,7 @@ public:
       it = formula_cache.find(hash);
       if (it != formula_cache.end())
       {
-	for (int i = 0; i < it->second.size(); ++i)
+	for (size_t i = 0; i < it->second.size(); ++i)
 	  if (it->second[i]->data == (f->data ^ 1))
 	    return it->second[i];
       }
@@ -181,19 +181,19 @@ public:
     std::sort(conjuncts.begin(), conjuncts.end());
     assert(conjuncts.size() > 2);
     uint64_t hash = (((uint64_t)conjuncts[0]->data) << 32) ^ (((uint64_t)conjuncts[1]->data));
-    for (int i = 2; i < conjuncts.size(); ++i) {
+    for (size_t i = 2; i < conjuncts.size(); ++i) {
       hash *= conjuncts[i]->data;
     }
 
     it = formula_cache.find(hash);
     if (it != formula_cache.end())
     {
-      for (int i = 0; i < it->second.size(); ++i)
+      for (size_t i = 0; i < it->second.size(); ++i)
       {
 	if (isAND(it->second[i]) && conjuncts.size() == it->second[i]->input_nodes.size())
 	{
 	  bool equal = true;
-	  for (int j = 0; j < it->second[i]->input_nodes.size(); ++j) {
+	  for (size_t j = 0; j < it->second[i]->input_nodes.size(); ++j) {
 	    if (it->second[i]->input_nodes[j] != conjuncts[j])
 	    {
 	      equal = false;
@@ -220,7 +220,7 @@ public:
       it = formula_cache.find(hash);
       if (it != formula_cache.end())
       {
-	for (int i = 0; i < it->second.size(); ++i)
+	for (size_t i = 0; i < it->second.size(); ++i)
 	{
 	  if (isAND(it->second[i]) && it->second[i]->input_nodes[0] == f && it->second[i]->input_nodes[1] == g)
 	    return it->second[i];
@@ -246,7 +246,7 @@ public:
       it = formula_cache.find(hash);
       if (it != formula_cache.end())
       {
-	for (int i = 0; i < it->second.size(); ++i)
+	for (size_t i = 0; i < it->second.size(); ++i)
 	{
 	  if (isEquiv(it->second[i]) && it->second[i]->input_nodes[0] == f && it->second[i]->input_nodes[1] == g)
 	    return it->second[i];
@@ -287,7 +287,7 @@ public:
       it = formula_cache.find(hash);
       if (it != formula_cache.end())
       {
-	for (int i = 0; i < it->second.size(); ++i)
+	for (size_t i = 0; i < it->second.size(); ++i)
 	{
 	  if (isFAs(it->second[i]) && it->second[i]->input_nodes[0] == x && it->second[i]->input_nodes[1] == y && it->second[i]->input_nodes[2] == c)
 	    return it->second[i];
@@ -322,7 +322,7 @@ public:
       it = formula_cache.find(hash);
       if (it != formula_cache.end())
       {
-	for (int i = 0; i < it->second.size(); ++i)
+	for (size_t i = 0; i < it->second.size(); ++i)
 	{
 	  if (isFAc(it->second[i]) && it->second[i]->input_nodes[0] == x && it->second[i]->input_nodes[1] == y && it->second[i]->input_nodes[2] == c)
 	    return it->second[i];
@@ -359,7 +359,7 @@ public:
       it = formula_cache.find(hash);
       if (it != formula_cache.end())
       {
-	for (int i = 0; i < it->second.size(); ++i)
+	for (size_t i = 0; i < it->second.size(); ++i)
 	{
 	  if (isMonotonicITE(it->second[i]) && selector(it->second[i]) == s && true_branch(it->second[i]) == t && false_branch(it->second[i]) == f)
 	    return it->second[i];

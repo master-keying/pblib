@@ -35,7 +35,7 @@ private:
  void riffle(std::vector<Formula>& fs)
 {
     std::vector<Formula> tmp; tmp = fs;
-    for (int i = 0; i < fs.size() / 2; i++){
+    for (size_t i = 0; i < fs.size() / 2; i++){
         fs[i*2]   = tmp[i];
         fs[i*2+1] = tmp[i+fs.size() / 2];
     }
@@ -44,29 +44,31 @@ private:
  void unriffle(std::vector<Formula>& fs)
 {
     std::vector<Formula> tmp; tmp = fs;
-    for (int i = 0; i < fs.size() / 2; i++){
+    for (size_t i = 0; i < fs.size() / 2; i++){
         fs[i]               = tmp[i*2];
         fs[i+fs.size() / 2] = tmp[i*2+1];
     }
 }
 
- void oddEvenMerge(std::vector<Formula>& fs, int begin, int end)
+ void oddEvenMerge(std::vector<Formula>& fs, size_t begin, size_t end)
 {
-    assert(end - begin > 1);
+    assert(end > begin);
     if (end - begin == 2)
         cmp2(fs,begin);
     else {
-        int          mid = (end - begin) / 2;
+        size_t mid = (end - begin) / 2;
         std::vector<Formula> tmp;
-        for (int i = 0; i < end - begin; i++)
+        for (size_t i = 0; i < end - begin; i++)
             tmp.push_back(fs[begin+i]);
         unriffle(tmp);
         oddEvenMerge(tmp,0,mid);
         oddEvenMerge(tmp,mid,tmp.size());
         riffle(tmp);
-        for (int i = 1; i < tmp.size() - 1; i += 2)
-            cmp2(tmp,i);
-        for (int i = 0; i < tmp.size(); i++)
+        if (tmp.size() > 0) {
+            for (size_t i = 1; i < tmp.size() - 1; i += 2)
+                cmp2(tmp,i);
+        }
+        for (size_t i = 0; i < tmp.size(); i++)
             fs[i + begin] = tmp[i];
     }
 }
@@ -76,18 +78,19 @@ private:
 // NOTE: The number of comparisons is bounded by: n * log n * (log n + 1)
 void oddEvenSort(std::vector<Formula>& fs)
 {
-    int orig_sz = fs.size();
-    int sz; for (sz = 1; sz < fs.size(); sz *= 2);
+    size_t orig_sz = fs.size();
+    size_t sz; for (sz = 1; sz < fs.size(); sz *= 2);
 
     if (fs.size() < sz)
       fs.resize(sz,_false_);
 
 
-    for (int i = 1; i < fs.size(); i *= 2)
-        for (int j = 0; j + 2*i <= fs.size(); j += 2*i)
+    for (size_t i = 1; i < fs.size(); i *= 2)
+        for (size_t j = 0; j + 2*i <= fs.size(); j += 2*i)
             oddEvenMerge(fs,j,j+2*i);
 
-    for (int i = 0; i < sz - orig_sz; ++i)
+    assert(sz > orig_sz);
+    for (size_t i = 0; i < sz - orig_sz; ++i)
       fs.pop_back();
 }
 
@@ -98,7 +101,7 @@ void optimizeBase(std::vector<int64_t>& seq, int carry_ins, std::vector<int64_t>
 
     // "Base case" -- don't split further, build sorting network for current sequence:
     int64_t final_cost = 0;
-    for (int i = 0; i < seq.size(); i++){
+    for (size_t i = 0; i < seq.size(); i++){
         final_cost += seq[i];
 
         if (final_cost < 0)
@@ -130,7 +133,7 @@ void optimizeBase(std::vector<int64_t>& seq, int carry_ins, std::vector<int64_t>
         int rest = carry_ins;   // Sum of all the remainders.
         int64_t div, rem;
 
-        for (int j = 0; j < seq.size(); j++){
+        for (size_t j = 0; j < seq.size(); j++){
             rest += seq[j] % p;
             div = seq[j] / p;
             if (div > 0)
@@ -143,7 +146,7 @@ void optimizeBase(std::vector<int64_t>& seq, int carry_ins, std::vector<int64_t>
 #else
         bool    digit_important = false;
 #endif
-        for (int j = 0; j < rhs.size(); j++){
+        for (size_t j = 0; j < rhs.size(); j++){
             div = rhs[j] / p;
             if (new_rhs.size() == 0 || div > new_rhs.back()){
                 rem = rhs[j] % p;
@@ -188,7 +191,7 @@ void optimizeBase(std::vector<int64_t>& seq, std::vector<int64_t>& rhs, int& cos
 void buildSorter(std::vector<Formula>& ps, std::vector<int>& Cs, std::vector<Formula>& out_sorter)
 {
     out_sorter.clear();
-    for (int i = 0; i < ps.size(); i++)
+    for (size_t i = 0; i < ps.size(); i++)
         for (int j = 0; j < Cs[i]; j++)
             out_sorter.push_back(ps[i]);
     oddEvenSort(out_sorter); // (overwrites inputs)
@@ -198,7 +201,7 @@ void buildSorter(std::vector<Formula>& ps, std::vector<int>& Cs, std::vector<For
 void buildSorter(std::vector<Formula>& ps, std::vector<int64_t>& Cs, std::vector<Formula>& out_sorter)
 {
     std::vector<int>    Cs_copy;
-    for (int i = 0; i < Cs.size(); i++)
+    for (size_t i = 0; i < Cs.size(); i++)
         Cs_copy.push_back(Cs[i]);
     buildSorter(ps, Cs_copy, out_sorter);
 }
@@ -207,14 +210,14 @@ void buildSorter(std::vector<Formula>& ps, std::vector<int64_t>& Cs, std::vector
 class Exception_TooBig {};
 
 
-void buildConstraint(std::vector<Formula>& ps, std::vector<int64_t>& Cs, std::vector<Formula>& carry, std::vector<int>& base, int digit_no, std::vector<std::vector<Formula> >& out_digits)
+void buildConstraint(std::vector<Formula>& ps, std::vector<int64_t>& Cs, std::vector<Formula>& carry, std::vector<int>& base, size_t digit_no, std::vector<std::vector<Formula> >& out_digits)
 {
     assert(ps.size() == Cs.size());
 
     if (digit_no == base.size()){
         // Final digit, build sorter for rest:
         // -- add carry bits:
-        for (int i = 0; i < carry.size(); i++)
+        for (size_t i = 0; i < carry.size(); i++)
             ps.push_back(carry[i]),
             Cs.push_back(1);
         out_digits.push_back(std::vector<Formula>());
@@ -227,8 +230,8 @@ void buildConstraint(std::vector<Formula>& ps, std::vector<int64_t>& Cs, std::ve
         std::vector<int64_t>        Cs_div;
 
         // Split sum according to base:
-        int B = base[digit_no];
-        for (int i = 0; i < Cs.size(); i++){
+        size_t B = base[digit_no];
+        for (size_t i = 0; i < Cs.size(); i++){
             int64_t div = Cs[i] / int64_t(B);
             int rem = Cs[i] % B;
             if (div > 0){
@@ -242,7 +245,7 @@ void buildConstraint(std::vector<Formula>& ps, std::vector<int64_t>& Cs, std::ve
         }
 
         // Add carry bits:
-        for (int i = 0; i < carry.size(); i++)
+        for (size_t i = 0; i < carry.size(); i++)
             ps_rem.push_back(carry[i]),
             Cs_rem.push_back(1);
 
@@ -252,14 +255,14 @@ void buildConstraint(std::vector<Formula>& ps, std::vector<int64_t>& Cs, std::ve
 
         // Get carry bits:
         carry.clear();
-        for (int i = B-1; i < result.size(); i += B)
+        for (size_t i = B-1; i < result.size(); i += B)
             carry.push_back(result[i]);
 
         out_digits.push_back(std::vector<Formula>());
-        for (int i = 0; i < B-1; i++){
+        for (size_t i = 0; i < B-1; i++){
             Formula out = _false_;
-            for (int j = 0; j < result.size(); j += B){
-                int n = j+B-1;
+            for (size_t j = 0; j < result.size(); j += B){
+                size_t n = j+B-1;
                 if (j + i < result.size())
                     out = OR(out, AND(result[j + i] , ((n >= result.size()) ? _true_ : ~result[n])));
             }
@@ -281,7 +284,7 @@ Naming:
 
 void convert(int64_t num, std::vector<int>& base, std::vector<int>& out_digs)
 {
-    for (int i = 0; i < base.size(); i++){
+    for (size_t i = 0; i < base.size(); i++){
         out_digs.push_back(num % base[i]);
         num /= base[i];
     }
@@ -300,7 +303,7 @@ Formula lexComp(int sz, std::vector<int>& num, std::vector<std::vector<Formula> 
     else{
         sz--;
         std::vector<Formula>& digit = digits[sz];
-        int           dig   = num[sz];
+        size_t           dig   = num[sz];
 
         Formula gt = (digit.size() > dig) ? digit[dig] : _false_;       // This digit is greater than the "dig" of 'num'.
         Formula ge = (dig == 0) ? _true_ :
