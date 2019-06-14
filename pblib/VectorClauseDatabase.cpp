@@ -52,7 +52,8 @@ void VectorClauseDatabase::printFormula(ostream & output)
 {
   for (int i = 0; i < clauses->size(); ++i)
   {
-    cout << (*clauses)[i] << " 0" << endl;
+	  print_vector(cout, (*clauses)[i]);
+		cout << " 0" << endl;
   }
 }
 
