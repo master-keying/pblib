@@ -28,13 +28,15 @@ and to keep the learned clauses for incremental SAT solver calls.
 
 ## About this fork
 
-[![Build Status](https://travis-ci.org/master-keying/pblib.svg?branch=master)](https://travis-ci.org/master-keying/pblib)
-[![Build Status](https://ci.appveyor.com/api/projects/status/ctq1d74hvaf3m58q?svg=true)](https://ci.appveyor.com/project/cernoch/pblib)
-
 The _vanilla_ PBlib is hosted at
 [TU Dresden](http://tools.computational-logic.org/content/pblib.php).
 If you find a more recent version there,
 please let [me](https://github.com/cernoch) know.
+
+This repository is not a clone of the vanilla repo, but of the 
+[GitHub fork](https://github.com/master-keying/pblib), which
+is the only known fork that is being maintained.
+Please send patches and bugfixes there.
 
 The fork aims at keeping the PBlib as intact as possible,
 but improving its usability in other projects.
