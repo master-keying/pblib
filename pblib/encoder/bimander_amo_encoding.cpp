@@ -190,9 +190,3 @@ Bimander_amo_encoding::Bimander_amo_encoding(PBConfig& config) : Encoder(config)
 {
 
 }
-
-Bimander_amo_encoding::~Bimander_amo_encoding()
-{
-
-}
-

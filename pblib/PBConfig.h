@@ -72,11 +72,7 @@ public:
     int64_t approximate_max_value = 1000;
     std::set<std::string> cmd_line_options;
 
-    PBConfigClass();
-    virtual ~PBConfigClass();
-
     std::string config_name = "";
-
 };
 
 typedef std::shared_ptr<PBConfigClass> PBConfig;

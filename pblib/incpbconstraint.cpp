@@ -130,11 +130,6 @@ void IncPBConstraint::encodeNewLeq(int64_t newLeq, ClauseDatabase& formula, AuxV
 
 
 
-IncPBConstraint::~IncPBConstraint()
-{
-
-}
-
 bool IncPBConstraint::operator==(const IncPBConstraint& other) const
 {
   return false;

@@ -23,7 +23,7 @@ private:
 public:
     // init the aux var manager with the first variable that is free
     AuxVarManager(int32_t first_free_variable);
-    virtual ~AuxVarManager();
+    virtual ~AuxVarManager() = default;
 
     // returns an unused variables
     int32_t getVariable();

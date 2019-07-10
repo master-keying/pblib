@@ -29,7 +29,7 @@ public:
     int64_t encodingValue(const SimplePBConstraint& pbconstraint);
 
     BDD_Seq_Amo(PBConfig & config);
-    virtual ~BDD_Seq_Amo();
+    ~BDD_Seq_Amo() override = default;
 };
 
 #endif // BDD_SEQ_AMO_H

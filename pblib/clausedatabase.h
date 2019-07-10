@@ -34,7 +34,7 @@ public:
   std::vector<int32_t> & getConditionals();
 
   ClauseDatabase(PBConfig config);
-  virtual ~ClauseDatabase();
+  virtual ~ClauseDatabase() = default;
 
   // add a clause to database
   virtual void addClause(std::vector<int32_t> const & clause);

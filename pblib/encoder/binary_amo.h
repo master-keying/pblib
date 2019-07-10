@@ -29,7 +29,7 @@ public:
     int64_t encodingValue(const SimplePBConstraint& pbconstraint);
 
     Binary_AMO_Encoder(PBConfig & config);
-    virtual ~Binary_AMO_Encoder();
+    ~Binary_AMO_Encoder() override = default;
 };
 
 #endif // BINARY_AMO_H

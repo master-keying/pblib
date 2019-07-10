@@ -1,16 +1,6 @@
 #include "IncrementalData.h"
 
 using namespace std;
-IncrementalData::IncrementalData()
-{
-
-}
-
-IncrementalData::~IncrementalData()
-{
-
-}
-
 
 bool IncrementalData::operator==(const IncrementalData& other) const
 {
@@ -40,12 +30,6 @@ void AMOIncrementalData::encodeNewLeq(int64_t newLeq, ClauseDatabase& formula, A
 }
 
 
-AMOIncrementalData::~AMOIncrementalData()
-{
-
-}
-
-
 void IncrementalDontCare::encodeNewGeq(int64_t newGeq, ClauseDatabase& formula, AuxVarManager& auxVars, vector< int32_t > conditionals)
 {
   formula.addConditionals(conditionals);
@@ -67,14 +51,4 @@ void IncrementalDontCare::encodeNewLeq(int64_t newLeq, ClauseDatabase& formula, 
 
   for (int i = 0; i < conditionals.size(); ++i)
       formula.getConditionals().pop_back();
-}
-
-IncrementalDontCare::IncrementalDontCare()
-{
-
-}
-
-IncrementalDontCare::~IncrementalDontCare()
-{
-
 }

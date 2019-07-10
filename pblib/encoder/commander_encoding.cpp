@@ -101,9 +101,3 @@ commander_encoding::commander_encoding(PBConfig& config) : Encoder(config), basi
 {
   k = config->commander_encoding_k;
 }
-
-commander_encoding::~commander_encoding()
-{
-
-}
-

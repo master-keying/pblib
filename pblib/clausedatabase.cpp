@@ -94,12 +94,6 @@ ClauseDatabase::ClauseDatabase(PBConfig config) : config(config)
   FormulaClass::config = config;
 }
 
-ClauseDatabase::~ClauseDatabase()
-{
-
-}
-
-
 bool ClauseDatabase::operator==(const ClauseDatabase& other) const
 {
   return false;

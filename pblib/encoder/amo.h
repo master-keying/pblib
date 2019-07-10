@@ -30,7 +30,7 @@ public:
 
 
     AMO_Encoder(PBConfig & config);
-    virtual ~AMO_Encoder();
+    ~AMO_Encoder() override = default;
 };
 
 #endif // AMO_H

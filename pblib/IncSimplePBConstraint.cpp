@@ -87,11 +87,3 @@ void IncSimplePBConstraint::setIncrementalData(shared_ptr< IncrementalData > inc
 {
   incremental_data = incrementalData;
 }
-
-
-IncSimplePBConstraint::~IncSimplePBConstraint()
-{
-
-}
-
-

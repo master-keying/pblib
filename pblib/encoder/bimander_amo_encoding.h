@@ -32,7 +32,7 @@ public:
     int64_t encodingValue(const SimplePBConstraint& pbconstraint);
 
     Bimander_amo_encoding(PBConfig & config);
-    virtual ~Bimander_amo_encoding();
+    ~Bimander_amo_encoding() override = default;
 };
 
 #endif // BINARY_AMO_H

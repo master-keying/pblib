@@ -94,8 +94,3 @@ Binary_AMO_Encoder::Binary_AMO_Encoder(PBConfig& config) : Encoder(config)
 {
 
 }
-
-Binary_AMO_Encoder::~Binary_AMO_Encoder()
-{
-
-}

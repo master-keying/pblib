@@ -24,7 +24,7 @@ private:
       std::vector<int32_t> outlits;
     public:
       SWCIncData(std::vector<int32_t> & outlits);
-      ~SWCIncData();
+      ~SWCIncData() override = default;
       virtual void encodeNewGeq(int64_t newGeq, ClauseDatabase& formula, AuxVarManager& auxVars, std::vector< int32_t > conditionals);
       virtual void encodeNewLeq(int64_t newLeq, ClauseDatabase& formula, AuxVarManager& auxVars, std::vector< int32_t > conditionals);
     };
@@ -42,7 +42,7 @@ public:
     int64_t encodingValue(const std::shared_ptr< IncSimplePBConstraint >& pbconstraint);
 
     SWC_Encoder(PBConfig config);
-    virtual ~SWC_Encoder();
+    ~SWC_Encoder() override = default;
 
 };
 

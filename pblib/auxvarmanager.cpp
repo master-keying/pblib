@@ -84,9 +84,3 @@ void AuxVarManager::stopRememerReturnedVariables()
 AuxVarManager::AuxVarManager(int32_t first_free_variable) : variable_offset(first_free_variable), rememberedVariables(nullptr)
 {
 }
-
-
-AuxVarManager::~AuxVarManager()
-{
-}
-

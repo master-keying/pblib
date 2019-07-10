@@ -33,7 +33,7 @@ public:
     int64_t encodingValue(const SimplePBConstraint& pbconstraint);
 
     k_Product(PBConfig & config);
-    virtual ~k_Product();
+    ~k_Product() override = default;
 };
 
 #endif // K_PRODUCT_AMO_H

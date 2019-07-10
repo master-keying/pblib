@@ -130,12 +130,6 @@ SWC_Encoder::SWCIncData::SWCIncData(vector< int32_t >& outlits) : outlits(outlit
 }
 
 
-SWC_Encoder::SWCIncData::~SWCIncData()
-{
-
-}
-
-
 int64_t SWC_Encoder::encodingValue(const SimplePBConstraint& pbconstraint)
 {
   int n = pbconstraint.getN();
@@ -154,11 +148,6 @@ int64_t SWC_Encoder::encodingValue(const shared_ptr< IncSimplePBConstraint >& pb
 
 
 SWC_Encoder::SWC_Encoder(PBConfig config): Encoder(config)
-{
-
-}
-
-SWC_Encoder::~SWC_Encoder()
 {
 
 }

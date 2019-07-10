@@ -48,12 +48,6 @@ void AdderEncoding::AdderIncData::encodeNewLeq(int64_t newLeq, ClauseDatabase& f
       formula.getConditionals().pop_back();
 }
 
-AdderEncoding::AdderIncData::~AdderIncData()
-{
-
-}
-
-
 void AdderEncoding::FA_extra ( int32_t xc, int32_t xs, int32_t a, int32_t b, int32_t c )
 {
 

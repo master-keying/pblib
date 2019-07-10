@@ -109,8 +109,3 @@ AMO_Encoder::AMO_Encoder(PBConfig& config) : Encoder(config)
 {
 
 }
-
-AMO_Encoder::~AMO_Encoder()
-{
-
-}

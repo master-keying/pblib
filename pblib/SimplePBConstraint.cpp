@@ -52,12 +52,6 @@ void SimplePBConstraint::print(bool std_err) const
 }
 
 
-SimplePBConstraint::~SimplePBConstraint()
-{
-
-}
-
-
 bool SimplePBConstraint::operator==(const SimplePBConstraint& other) const
 {
   return false;

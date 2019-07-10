@@ -51,8 +51,3 @@ Naive_amo_encoder::Naive_amo_encoder(PBConfig& config) : Encoder(config)
 {
 
 }
-
-Naive_amo_encoder::~Naive_amo_encoder()
-{
-
-}

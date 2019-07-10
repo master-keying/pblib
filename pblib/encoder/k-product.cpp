@@ -141,9 +141,3 @@ k_Product::k_Product(PBConfig& config) : Encoder(config), basic_amo_encoder(conf
   k = config->k_product_k;
   assert(k >= 2);
 }
-
-k_Product::~k_Product()
-{
-
-}
-

@@ -33,7 +33,7 @@ public:
     IncPBConstraint(std::vector<PBLib::WeightedLit> const & literals, PBLib::Comparator comparator, int64_t less_eq, int64_t greater_eq);
     IncPBConstraint(std::vector<PBLib::WeightedLit> const & literals, PBLib::Comparator comparator, int64_t bound);
     IncPBConstraint();
-    virtual ~IncPBConstraint();
+    virtual ~IncPBConstraint() = default;
 
     void addConditional(int32_t lit);
     void addConditionals(std::vector<int32_t> lits);

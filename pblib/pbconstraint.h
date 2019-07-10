@@ -34,7 +34,7 @@ public:
     std::vector<PBLib::WeightedLit> const & getWeightedLiterals() const;
     int64_t getLeq() const;
     int64_t getGeq() const;
-    virtual ~PBConstraint();
+    virtual ~PBConstraint() = default;
     Comparator getComparator() const;
 
    PBConstraint getGeqConstraint() const;

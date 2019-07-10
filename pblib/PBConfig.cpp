@@ -26,16 +26,3 @@ void statistic::printStatisticRelative()
 //        << " bdd: " << ((double)num_bdd_clause_encodings + (double)num_bdd_gates_encodings) / sum_encodings
 //        << " adder: " << (double)num_adder_encodings / sum_encodings << endl;
 }
-
-
-PBConfigClass::PBConfigClass()
-{
-
-}
-
-PBConfigClass::~PBConfigClass()
-{
-
-}
-
-

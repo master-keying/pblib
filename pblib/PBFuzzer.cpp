@@ -313,14 +313,3 @@ PBConstraint PBFuzzer::generatePBProblem(std::vector< PBConstraint> & constraint
     scramble(constraints);
   return opt;
 }
-
-PBFuzzer::PBFuzzer()
-{
-
-}
-
-PBFuzzer::~PBFuzzer()
-{
-
-}
-

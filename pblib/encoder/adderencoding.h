@@ -32,7 +32,7 @@ private:
       virtual void encodeNewLeq(int64_t newLeq, ClauseDatabase& formula, AuxVarManager& auxVars, std::vector< int32_t > conditionals);
 
       AdderIncData(std::vector<int32_t> result);
-      virtual ~AdderIncData();
+      ~AdderIncData() override = default;
   };
 
 

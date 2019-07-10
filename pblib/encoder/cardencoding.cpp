@@ -5,10 +5,6 @@
 
 using namespace PBLib;
 using namespace std;
-CardEncoding::CardIncData::~CardIncData()
-{
-}
-
 
 CardEncoding::CardIncData::CardIncData(vector< Lit >& outlits) : outlits(outlits) {}
 
@@ -164,10 +160,3 @@ CardEncoding::CardEncoding(PBConfig& config) : Encoder(config)
 {
 
 }
-
-CardEncoding::~CardEncoding()
-{
-
-}
-
-

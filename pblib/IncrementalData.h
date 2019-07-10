@@ -10,8 +10,8 @@ private:
     IncrementalData(const IncrementalData& other) = delete;
     virtual bool operator==(const IncrementalData& other) const;
 public:
-    IncrementalData();
-    virtual ~IncrementalData();
+    IncrementalData() = default;
+    virtual ~IncrementalData() = default;
 
     virtual void encodeNewGeq(int64_t newGeq, ClauseDatabase & formula, AuxVarManager & auxVars, std::vector< int32_t > conditionals) = 0;
     virtual void encodeNewLeq(int64_t newLeq, ClauseDatabase & formula, AuxVarManager & auxVars, std::vector< int32_t > conditionals) = 0;
@@ -23,8 +23,7 @@ class IncrementalDontCare : public IncrementalData
 public:
     virtual void encodeNewGeq(int64_t newGeq, ClauseDatabase& formula, AuxVarManager& auxVars, std::vector< int32_t > conditionals);
     virtual void encodeNewLeq(int64_t newLeq, ClauseDatabase& formula, AuxVarManager& auxVars, std::vector< int32_t > conditionals);
-    IncrementalDontCare();
-    virtual ~IncrementalDontCare();
+    ~IncrementalDontCare() override = default;
 };
 
 class AMOIncrementalData : public IncrementalData
@@ -35,7 +34,7 @@ public:
     virtual void encodeNewGeq(int64_t newGeq, ClauseDatabase& formula, AuxVarManager& auxVars, std::vector< int32_t > conditionals);
     virtual void encodeNewLeq(int64_t newLeq, ClauseDatabase& formula, AuxVarManager& auxVars, std::vector< int32_t > conditionals);
     AMOIncrementalData (std::vector<int32_t> & geqOneClause);
-    virtual ~AMOIncrementalData ();
+    ~AMOIncrementalData() override = default;
 };
 
 #endif // INCREMENTALDATA_H

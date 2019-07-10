@@ -13,6 +13,7 @@ class Encoder
 
  public:
   Encoder(PBConfig & config);
+  virtual ~Encoder() = default;
 
   void virtual encode(const SimplePBConstraint& pbconstraint, ClauseDatabase & formula, AuxVarManager & auxvars) = 0;
   void virtual encode(const std::shared_ptr<IncSimplePBConstraint> & pbconstraint, ClauseDatabase & formula, AuxVarManager & auxvars);
