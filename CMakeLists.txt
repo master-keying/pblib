@@ -141,3 +141,20 @@ export(EXPORT PBlibTargets
 )
 
 export(PACKAGE PBlib)
+
+function(AddWarnings target)
+    if ( CMAKE_CXX_COMPILER_ID MATCHES "Clang|AppleClang|GNU" )
+        target_compile_options( ${target} PRIVATE -Wall -Wextra )
+    endif()
+    if ( CMAKE_CXX_COMPILER_ID MATCHES "MSVC" )
+        target_compile_options( ${target} PRIVATE /W4 /wd4800 /wd4200 /wd4245 )
+    endif()
+endfunction()
+
+
+
+AddWarnings(pbo2maxsat)
+AddWarnings(pbencoder)
+AddWarnings(pbsolver)
+AddWarnings(fuzzer)
+AddWarnings(pblib)
