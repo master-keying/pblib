@@ -18,7 +18,6 @@ private:
   std::vector<int32_t> conditionals;
 
   ClauseDatabase(const ClauseDatabase& other) = delete;
-  virtual bool operator==(const ClauseDatabase& other) const;
 
   virtual int32_t polarityClausify(Formula const & f, AuxVarManager & aux_vars);
 

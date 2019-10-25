@@ -12,7 +12,6 @@ private:
     int64_t tmpWeight;
     PreEncoder(const PreEncoder& other) = delete;
     virtual PreEncoder& operator=(const PreEncoder& other) = delete;
-    virtual bool operator==(const PreEncoder& other) const = delete;
     void join_duplicat_literals();
     void normalize_variables();
     void remove_lits_with_w_greater_leq_and_check_isamk(ClauseDatabase& formula);

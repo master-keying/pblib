@@ -94,11 +94,6 @@ ClauseDatabase::ClauseDatabase(PBConfig config) : config(config)
   FormulaClass::config = config;
 }
 
-bool ClauseDatabase::operator==(const ClauseDatabase&) const
-{
-  return false;
-}
-
 // this is adapted code from minisat+
 int32_t ClauseDatabase::polarityClausify(const Formula& f, AuxVarManager& aux_vars )
 {

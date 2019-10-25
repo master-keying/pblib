@@ -20,7 +20,6 @@ private:
     std::vector<PBLib::WeightedLit> weighted_literals;
     PBLib::Comparator comparator;
 
-    virtual bool operator==(const IncPBConstraint& other) const;
     std::shared_ptr<IncSimplePBConstraint> inc_simple_pb_constraint;
 
     bool isDualEncoded;

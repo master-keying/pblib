@@ -51,12 +51,6 @@ void SimplePBConstraint::print(bool std_err) const
     PBConstraint::print(std_err);
 }
 
-
-bool SimplePBConstraint::operator==(const SimplePBConstraint&) const
-{
-  return false;
-}
-
 int64_t SimplePBConstraint::getMaxSum() const
 {
   return max_sum;

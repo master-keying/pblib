@@ -14,7 +14,6 @@ class AuxVarManager
 // managed fresh auxiliary variables
 private:
     AuxVarManager(const AuxVarManager& other) = delete;
-    virtual bool operator==(const AuxVarManager& other) const = delete;
 
     int32_t variable_offset;
     std::unordered_set<int32_t> free_variables;

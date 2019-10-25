@@ -12,8 +12,6 @@ enum Comparator { LEQ, GEQ, BOTH };
 
 class PBConstraint
 {
-private:
-    virtual bool operator==(const PBConstraint& other) const;
 protected:
     int64_t leq;
     int64_t geq;
