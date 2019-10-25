@@ -2,7 +2,7 @@
 
 using namespace std;
 
-bool IncrementalData::operator==(const IncrementalData& other) const
+bool IncrementalData::operator==(const IncrementalData&) const
 {
   return false;
 }
@@ -12,7 +12,7 @@ AMOIncrementalData::AMOIncrementalData(vector< int32_t >& geqOneClause) : geqOne
 
 }
 
-void AMOIncrementalData::encodeNewGeq(int64_t newGeq, ClauseDatabase& formula, AuxVarManager& auxVars, vector< int32_t > conditionals)
+void AMOIncrementalData::encodeNewGeq(int64_t newGeq, ClauseDatabase& formula, AuxVarManager&, vector< int32_t > conditionals)
 {
   formula.addConditionals(conditionals);
 
@@ -24,13 +24,13 @@ void AMOIncrementalData::encodeNewGeq(int64_t newGeq, ClauseDatabase& formula, A
 
 }
 
-void AMOIncrementalData::encodeNewLeq(int64_t newLeq, ClauseDatabase& formula, AuxVarManager& auxVars, vector< int32_t > conditionals)
+void AMOIncrementalData::encodeNewLeq(int64_t, ClauseDatabase&, AuxVarManager&, vector<int32_t>)
 {
   assert(false && "this should never happen");
 }
 
 
-void IncrementalDontCare::encodeNewGeq(int64_t newGeq, ClauseDatabase& formula, AuxVarManager& auxVars, vector< int32_t > conditionals)
+void IncrementalDontCare::encodeNewGeq(int64_t newGeq, ClauseDatabase& formula, AuxVarManager&, vector< int32_t > conditionals)
 {
   formula.addConditionals(conditionals);
 
@@ -42,7 +42,7 @@ void IncrementalDontCare::encodeNewGeq(int64_t newGeq, ClauseDatabase& formula, 
 
 }
 
-void IncrementalDontCare::encodeNewLeq(int64_t newLeq, ClauseDatabase& formula, AuxVarManager& auxVars, vector< int32_t > conditionals)
+void IncrementalDontCare::encodeNewLeq(int64_t newLeq, ClauseDatabase& formula, AuxVarManager&, vector< int32_t > conditionals)
 {
   formula.addConditionals(conditionals);
 

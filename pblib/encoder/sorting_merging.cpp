@@ -489,13 +489,13 @@ void Sorting::comparator(const int32_t x1, const int32_t x2, const int32_t y1, c
 
 }
 
-int64_t Sorting::value_function(int num_clauses, int num_variables)
+int64_t Sorting::value_function(int num_clauses, int)
 {
   return num_clauses;
 }
 
 
-int64_t Sorting::direct_merger_value(int m, int a, int b, ImplicationDirection direction)
+int64_t Sorting::direct_merger_value(int m, int a, int b, ImplicationDirection)
 {
   return value_function((a+b)*m-(m*m-m)/2-(a*a-a)/2-(b*b-b)/2, m);
 }
@@ -576,12 +576,12 @@ int64_t Sorting::recursive_sorter_value(int m, int n, ImplicationDirection direc
 
 
 
-int64_t Sorting::counter_sorter_value(int m, int n, ImplicationDirection direction)
+int64_t Sorting::counter_sorter_value(int m, int n, ImplicationDirection)
 {
   return value_function(2*n+(m-1)*(2*(n-1)-1)-(m-2)-2*((m-1)*(m-2)/2), m*n-m*(m-1)/2);
 }
 
-int64_t Sorting::direct_sorter_value(int m, int n, ImplicationDirection direction)
+int64_t Sorting::direct_sorter_value(int m, int n, ImplicationDirection)
 {
   if (n > 30)
     return LLONG_MAX;

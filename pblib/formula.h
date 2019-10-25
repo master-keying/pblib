@@ -46,7 +46,7 @@ inline bool operator < (Formula const & f, Formula const & g);
 inline bool operator > (Formula const & f, Formula const & g);
 
 
-
+struct copy_tag{};
 
 class FormulaClass
 {
@@ -58,7 +58,7 @@ private:
   static std::vector<Formula> nodes;
 public:
   static PBConfig config;
-  FormulaClass(int32_t flags, int32_t data, bool isCopyDummy) : flags(flags), data(data)
+  FormulaClass(int32_t flags, int32_t data, copy_tag) : flags(flags), data(data)
   {
     assert( (flags & 2) != 0); // Do NOT use this ctor for compound formulas! You would copy the id!
     assert( flags != 0 || data == 0 || data == 1 || data == 4);
@@ -70,7 +70,7 @@ public:
     assert( flags != 0 || data == 0 || data == 1 || data == 4);
   }
 
-   FormulaClass(int32_t flags, int32_t data, std::vector<Formula> & input_nodes, bool isCopyDummy) : flags(flags), data(data),  input_nodes(input_nodes)
+   FormulaClass(int32_t flags, int32_t data, std::vector<Formula> & input_nodes, copy_tag) : flags(flags), data(data),  input_nodes(input_nodes)
   {
     assert( (flags & 2) == 0);
     assert( flags != 0 || data == 0 || data == 1 || data == 4);
@@ -166,7 +166,8 @@ public:
       }
     }
 
-    Formula result = (isAtom(f)) ? std::make_shared<FormulaClass>(f->flags, f->data ^ 1, true) : std::make_shared<FormulaClass>(f->flags, f->data ^ 1, f->input_nodes, true);
+    Formula result = (isAtom(f)) ? std::make_shared<FormulaClass>(f->flags, f->data ^ 1, copy_tag{})
+                                 : std::make_shared<FormulaClass>(f->flags, f->data ^ 1, f->input_nodes, copy_tag{});
 
     if (config->use_formula_cache)
       formula_cache[hash].push_back(result);

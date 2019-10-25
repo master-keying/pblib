@@ -85,7 +85,7 @@ public:
 	 * @param nbvar: the number of variables
 	 * @param nbconstr: the number of contraints
 	 */
-	void metaData(int nbvar, int nbconstr)
+	void metaData(int nbvar, int /*nbconstr*/)
 	{
 		maxVarId = nbvar;
 	}

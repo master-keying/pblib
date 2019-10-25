@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void Binary_AMO_Encoder::encode_intern(vector< int32_t >& literals, ClauseDatabase & formula, AuxVarManager & auxvars)
+void Binary_AMO_Encoder::encode_intern(vector< int32_t >& literals, ClauseDatabase & formula, AuxVarManager&)
 {
   int gray_code;
   int next_gray;

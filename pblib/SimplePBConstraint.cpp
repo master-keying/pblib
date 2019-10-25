@@ -52,7 +52,7 @@ void SimplePBConstraint::print(bool std_err) const
 }
 
 
-bool SimplePBConstraint::operator==(const SimplePBConstraint& other) const
+bool SimplePBConstraint::operator==(const SimplePBConstraint&) const
 {
   return false;
 }

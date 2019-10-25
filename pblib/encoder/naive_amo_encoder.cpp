@@ -20,7 +20,7 @@ int64_t Naive_amo_encoder::encodingValue(const SimplePBConstraint& pbconstraint)
 }
 
 
-void Naive_amo_encoder::encode(const SimplePBConstraint& pbconstraint, ClauseDatabase& formula, AuxVarManager& auxvars)
+void Naive_amo_encoder::encode(const SimplePBConstraint& pbconstraint, ClauseDatabase& formula, AuxVarManager&)
 {
   formula.addConditionals(pbconstraint.getConditionals());
 

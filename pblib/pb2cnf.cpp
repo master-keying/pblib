@@ -54,7 +54,7 @@ void PB2CNF::encode_inc_with_swc(shared_ptr< IncSimplePBConstraint > constraint,
 
 
 
-void PB2CNF::encode_inc_amk(shared_ptr< IncSimplePBConstraint > constraint, IncPBConstraint & incPbconstraint, ClauseDatabase & formula, AuxVarManager & auxVars)
+void PB2CNF::encode_inc_amk(shared_ptr< IncSimplePBConstraint > constraint, IncPBConstraint&, ClauseDatabase & formula, AuxVarManager & auxVars)
 {
   if (card_encoder.encodingValue(constraint) < config->MAX_CLAUSES_PER_CONSTRAINT ) // aprox number of card clauses
     encode_inc_with_card(constraint, formula, auxVars);
@@ -62,7 +62,7 @@ void PB2CNF::encode_inc_amk(shared_ptr< IncSimplePBConstraint > constraint, IncP
     encode_inc_with_adder(constraint, formula, auxVars);
 }
 
-void PB2CNF::encode_inc_pb(shared_ptr< IncSimplePBConstraint > constraint, IncPBConstraint & incPbconstraint, ClauseDatabase & formula, AuxVarManager & auxVars)
+void PB2CNF::encode_inc_pb(shared_ptr< IncSimplePBConstraint > constraint, IncPBConstraint&, ClauseDatabase & formula, AuxVarManager & auxVars)
 {
   if(config->pb_encoder == PB_ENCODER::ADDER)
   {

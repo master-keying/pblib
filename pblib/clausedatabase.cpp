@@ -94,7 +94,7 @@ ClauseDatabase::ClauseDatabase(PBConfig config) : config(config)
   FormulaClass::config = config;
 }
 
-bool ClauseDatabase::operator==(const ClauseDatabase& other) const
+bool ClauseDatabase::operator==(const ClauseDatabase&) const
 {
   return false;
 }
@@ -247,7 +247,7 @@ CountingClauseDatabase::CountingClauseDatabase(PBConfig config) : ClauseDatabase
 
 }
 
-void CountingClauseDatabase::addClauseIntern(vector< int32_t > const & clause)
+void CountingClauseDatabase::addClauseIntern(vector< int32_t > const&)
 {
   number_of_clauses++;
 }
