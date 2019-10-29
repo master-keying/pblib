@@ -139,12 +139,6 @@ vector< WeightedLit > & PBConstraint::getWeightedLiterals()
 }
 
 
-bool PBConstraint::operator==(const PBConstraint&) const
-{
-  return false;
-}
-
-
 //TODO rewrite print functions ...
 
 void PBConstraint::print(bool std_err) const

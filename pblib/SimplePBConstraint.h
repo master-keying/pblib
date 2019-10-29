@@ -10,8 +10,6 @@ enum PBTYPE {DONTCARE, AMO, AMK, PB};
 
 class SimplePBConstraint : public PBLib::PBConstraint
 {
-private:
-    virtual bool operator==(const SimplePBConstraint& other) const;
 protected:
     PBTYPE type;
     int64_t max_sum;

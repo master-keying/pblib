@@ -8,7 +8,6 @@
 class IncSimplePBConstraint : public SimplePBConstraint
 {
 private:
-    virtual bool operator==(const IncSimplePBConstraint& other) const = delete;
     int64_t normalized_offset;
     int64_t init_leq;
     int64_t init_geq;

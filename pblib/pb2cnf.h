@@ -49,7 +49,6 @@ private:
     bool private_stats;
 
     PB2CNF(const PB2CNF& other) = delete;
-    virtual bool operator==(const PB2CNF& other) const = delete;
 
     bool encodeWithBestEncoder(std::vector<Encoder*> encoders, SimplePBConstraint & constraint, ClauseDatabase& formula, AuxVarManager& auxVars);
     bool encodeWithBestEncoder(std::vector<Encoder*> encoders, std::shared_ptr< IncSimplePBConstraint > constraint, ClauseDatabase& formula, AuxVarManager& auxVars);

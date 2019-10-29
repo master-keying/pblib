@@ -2,11 +2,6 @@
 
 using namespace std;
 
-bool IncrementalData::operator==(const IncrementalData&) const
-{
-  return false;
-}
-
 AMOIncrementalData::AMOIncrementalData(vector< int32_t >& geqOneClause) : geqOneClause(geqOneClause)
 {
 

@@ -8,7 +8,6 @@ class IncrementalData
 {
 private:
     IncrementalData(const IncrementalData& other) = delete;
-    virtual bool operator==(const IncrementalData& other) const;
 public:
     IncrementalData() = default;
     virtual ~IncrementalData() = default;
