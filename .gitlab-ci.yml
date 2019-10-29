@@ -1,0 +1,18 @@
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
+build-debug:
+  stage: build
+  script: |
+    scl enable llvm-toolset-7 devtoolset-8 "bash -C" <<EOF
+      cmake -H. -BBuild-Debug -DCMAKE_BUILD_TYPE=Debug
+      make -C Build-Debug -j`nproc`
+    EOF
+
+build-release:
+  stage: build
+  script: |
+    scl enable llvm-toolset-7 devtoolset-8 "bash -C" <<EOF
+      cmake -H. -BBuild-Release -DCMAKE_BUILD_TYPE=Release
+      make -C Build-Release -j`nproc`
+    EOF
