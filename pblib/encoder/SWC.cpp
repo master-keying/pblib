@@ -100,7 +100,7 @@ void SWC_Encoder::encode_intern(const SimplePBConstraint& pbconstraint, ClauseDa
 
 
 
-void SWC_Encoder::SWCIncData::encodeNewGeq(int64_t newGeq, ClauseDatabase& formula, AuxVarManager& auxVars, vector< int32_t > conditionals)
+void SWC_Encoder::SWCIncData::encodeNewGeq(int64_t newGeq, ClauseDatabase& formula, AuxVarManager&, vector< int32_t > conditionals)
 {
   formula.addConditionals(conditionals);
 
@@ -111,7 +111,7 @@ void SWC_Encoder::SWCIncData::encodeNewGeq(int64_t newGeq, ClauseDatabase& formu
     formula.getConditionals().pop_back();
 }
 
-void SWC_Encoder::SWCIncData::encodeNewLeq(int64_t newLeq, ClauseDatabase& formula, AuxVarManager& auxVars, vector< int32_t > conditionals)
+void SWC_Encoder::SWCIncData::encodeNewLeq(int64_t newLeq, ClauseDatabase& formula, AuxVarManager&, vector< int32_t > conditionals)
 {
   formula.addConditionals(conditionals);
 

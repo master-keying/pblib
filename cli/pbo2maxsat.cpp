@@ -17,8 +17,12 @@ using namespace PBLib;
 
 int main(int argc, char **argv)
 {
+    if (argc < 2) {
+        cerr << "c error: not enough arguments\n";
+        return -2;
+    }
 
-  double tstart = clock(), tend;
+  //double tstart = clock(), tend;
 
   PBParser parser;
 

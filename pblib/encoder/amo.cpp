@@ -94,7 +94,7 @@ void AMO_Encoder::encode(const SimplePBConstraint& pbconstraint, ClauseDatabase 
   for (int i = 0; i < pbconstraint.getConditionals().size(); ++i)
     formula.getConditionals().pop_back();
 }
-void AMO_Encoder::encodeEq(const SimplePBConstraint& pbconstraint, ClauseDatabase & formula, AuxVarManager & auxvars)
+void AMO_Encoder::encodeEq(const SimplePBConstraint& pbconstraint, ClauseDatabase & formula, AuxVarManager&)
 {
 	_literals.clear();
 

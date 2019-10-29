@@ -23,7 +23,7 @@ void commander_encoding::encode_non_recursive(vector< Lit >& literals, ClauseDat
 }
 
 
-void commander_encoding::encode_intern(vector< Lit >& literals, ClauseDatabase& formula, AuxVarManager& auxvars, bool isExactlyOne)
+void commander_encoding::encode_intern(vector<Lit>&, ClauseDatabase& formula, AuxVarManager& auxvars, bool isExactlyOne)
 {
   int i;
 

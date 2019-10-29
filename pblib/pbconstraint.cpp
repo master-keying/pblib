@@ -139,7 +139,7 @@ vector< WeightedLit > & PBConstraint::getWeightedLiterals()
 }
 
 
-bool PBConstraint::operator==(const PBConstraint& other) const
+bool PBConstraint::operator==(const PBConstraint&) const
 {
   return false;
 }

@@ -15,7 +15,7 @@ AdderEncoding::AdderIncData::AdderIncData(vector< int32_t > result) : result(res
 
 }
 
-void AdderEncoding::AdderIncData::encodeNewGeq(int64_t newGeq, ClauseDatabase& formula, AuxVarManager& auxVars, vector<int32_t> conditionals)
+void AdderEncoding::AdderIncData::encodeNewGeq(int64_t newGeq, ClauseDatabase& formula, AuxVarManager&, vector<int32_t> conditionals)
 {
   formula.addConditionals(conditionals);
 
@@ -36,7 +36,7 @@ void AdderEncoding::AdderIncData::encodeNewGeq(int64_t newGeq, ClauseDatabase& f
       formula.getConditionals().pop_back();
 }
 
-void AdderEncoding::AdderIncData::encodeNewLeq(int64_t newLeq, ClauseDatabase& formula, AuxVarManager& auxVars, vector<int32_t> conditionals)
+void AdderEncoding::AdderIncData::encodeNewLeq(int64_t newLeq, ClauseDatabase& formula, AuxVarManager&, vector<int32_t> conditionals)
 {
   formula.addConditionals(conditionals);
 
@@ -376,12 +376,12 @@ void AdderEncoding::encode ( const SimplePBConstraint& pbconstraint, ClauseDatab
 }
 
 
-int64_t AdderEncoding::encodingValue(const shared_ptr< IncSimplePBConstraint >& pbconstraint)
+int64_t AdderEncoding::encodingValue(const shared_ptr< IncSimplePBConstraint >&)
 {
   return config->MAX_CLAUSES_PER_CONSTRAINT - 1; // since adder encoding is not GAC we use this as fallback only
 }
 
-int64_t AdderEncoding::encodingValue(const SimplePBConstraint& pbconstraint)
+int64_t AdderEncoding::encodingValue(const SimplePBConstraint&)
 {
   return config->MAX_CLAUSES_PER_CONSTRAINT - 1;
 }

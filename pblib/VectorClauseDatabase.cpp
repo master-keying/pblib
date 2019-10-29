@@ -48,12 +48,12 @@ vector< vector< int32_t > > const & VectorClauseDatabase::getClauses()
 
 
 
-void VectorClauseDatabase::printFormula(ostream & output)
+void VectorClauseDatabase::printFormula(ostream& out)
 {
   for (int i = 0; i < clauses->size(); ++i)
   {
-    print_vector(cout, (*clauses)[i]);
-    cout << " 0" << endl;
+    print_vector(out, (*clauses)[i]);
+    out << " 0" << endl;
   }
 }
 

@@ -23,7 +23,7 @@ SortingNetworks::SortingNetworks(PBConfig& config) : Encoder(config)
 
 }
 
-int64_t SortingNetworks::encodingValue(const SimplePBConstraint& pbconstraint)
+int64_t SortingNetworks::encodingValue(const SimplePBConstraint&)
 {
   return config->MAX_CLAUSES_PER_CONSTRAINT - 1; // since sorting networks from minisat+ are not GAC we use this as fallback only
 }

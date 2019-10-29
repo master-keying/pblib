@@ -8,7 +8,7 @@ using namespace std;
 
 CardEncoding::CardIncData::CardIncData(vector< Lit >& outlits) : outlits(outlits) {}
 
-void CardEncoding::CardIncData::encodeNewGeq(int64_t newGeq, ClauseDatabase& formula, AuxVarManager& auxVars, vector< int32_t > conditionals)
+void CardEncoding::CardIncData::encodeNewGeq(int64_t newGeq, ClauseDatabase& formula, AuxVarManager&, vector< int32_t > conditionals)
 {
   formula.addConditionals(conditionals);
 
@@ -23,7 +23,7 @@ void CardEncoding::CardIncData::encodeNewGeq(int64_t newGeq, ClauseDatabase& for
 }
 
 
-void CardEncoding::CardIncData::encodeNewLeq(int64_t newLeq, ClauseDatabase& formula, AuxVarManager& auxVars, vector< int32_t > conditionals)
+void CardEncoding::CardIncData::encodeNewLeq(int64_t newLeq, ClauseDatabase& formula, AuxVarManager&, vector< int32_t > conditionals)
 {
   formula.addConditionals(conditionals);
 
