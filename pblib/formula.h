@@ -160,9 +160,11 @@ public:
       it = formula_cache.find(hash);
       if (it != formula_cache.end())
       {
-	for (int i = 0; i < it->second.size(); ++i)
-	  if (it->second[i]->data == (f->data ^ 1))
-	    return it->second[i];
+        for (const auto& formula : it->second) {
+          if (formula->data == (f->data ^ 1)) {
+            return formula;
+          }
+        }
       }
     }
 
@@ -221,11 +223,11 @@ public:
       it = formula_cache.find(hash);
       if (it != formula_cache.end())
       {
-	for (int i = 0; i < it->second.size(); ++i)
-	{
-	  if (isAND(it->second[i]) && it->second[i]->input_nodes[0] == f && it->second[i]->input_nodes[1] == g)
-	    return it->second[i];
-	}
+        for (auto const& formula : it->second) {
+          if (isAND(formula) && formula->input_nodes[0] == f && formula->input_nodes[1] == g) {
+            return formula;
+          }
+        }
       }
     }
 
@@ -247,11 +249,11 @@ public:
       it = formula_cache.find(hash);
       if (it != formula_cache.end())
       {
-	for (int i = 0; i < it->second.size(); ++i)
-	{
-	  if (isEquiv(it->second[i]) && it->second[i]->input_nodes[0] == f && it->second[i]->input_nodes[1] == g)
-	    return it->second[i];
-	}
+        for (auto const& formula : it->second) {
+          if (isEquiv(formula) && formula->input_nodes[0] == f && formula->input_nodes[1] == g) {
+            return formula;
+          }
+        }
       }
     }
 
@@ -288,11 +290,11 @@ public:
       it = formula_cache.find(hash);
       if (it != formula_cache.end())
       {
-	for (int i = 0; i < it->second.size(); ++i)
-	{
-	  if (isFAs(it->second[i]) && it->second[i]->input_nodes[0] == x && it->second[i]->input_nodes[1] == y && it->second[i]->input_nodes[2] == c)
-	    return it->second[i];
-	}
+        for (auto const& formula : it->second) {
+          if (isFAs(formula) && formula->input_nodes[0] == x && formula->input_nodes[1] == y && formula->input_nodes[2] == c) {
+            return formula;
+          }
+        }
       }
     }
 
@@ -323,11 +325,11 @@ public:
       it = formula_cache.find(hash);
       if (it != formula_cache.end())
       {
-	for (int i = 0; i < it->second.size(); ++i)
-	{
-	  if (isFAc(it->second[i]) && it->second[i]->input_nodes[0] == x && it->second[i]->input_nodes[1] == y && it->second[i]->input_nodes[2] == c)
-	    return it->second[i];
-	}
+        for (auto const& formula : it->second) {
+          if (isFAc(formula) && formula->input_nodes[0] == x && formula->input_nodes[1] == y && formula->input_nodes[2] == c) {
+            return formula;
+          }
+        }
       }
     }
 
@@ -360,11 +362,11 @@ public:
       it = formula_cache.find(hash);
       if (it != formula_cache.end())
       {
-	for (int i = 0; i < it->second.size(); ++i)
-	{
-	  if (isMonotonicITE(it->second[i]) && selector(it->second[i]) == s && true_branch(it->second[i]) == t && false_branch(it->second[i]) == f)
-	    return it->second[i];
-	}
+        for (auto const& formula : it->second) {
+          if (isMonotonicITE(formula) && selector(formula) == s && true_branch(formula) == t && false_branch(formula) == f) {
+            return formula;
+          }
+        }
       }
     }
 

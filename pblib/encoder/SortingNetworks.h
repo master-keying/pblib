@@ -66,7 +66,7 @@ private:
         riffle(tmp);
         for (int i = 1; i < tmp.size() - 1; i += 2)
             cmp2(tmp,i);
-        for (int i = 0; i < tmp.size(); i++)
+        for (size_t i = 0; i < tmp.size(); i++)
             fs[i + begin] = tmp[i];
     }
 }
@@ -76,8 +76,8 @@ private:
 // NOTE: The number of comparisons is bounded by: n * log n * (log n + 1)
 void oddEvenSort(std::vector<Formula>& fs)
 {
-    int orig_sz = fs.size();
-    int sz; for (sz = 1; sz < fs.size(); sz *= 2);
+    size_t orig_sz = fs.size();
+    size_t sz; for (sz = 1; sz < fs.size(); sz *= 2);
 
     if (fs.size() < sz)
       fs.resize(sz,_false_);
@@ -87,8 +87,7 @@ void oddEvenSort(std::vector<Formula>& fs)
         for (int j = 0; j + 2*i <= fs.size(); j += 2*i)
             oddEvenMerge(fs,j,j+2*i);
 
-    for (int i = 0; i < sz - orig_sz; ++i)
-      fs.pop_back();
+    fs.resize(orig_sz);
 }
 
 void optimizeBase(std::vector<int64_t>& seq, int carry_ins, std::vector<int64_t>& rhs, int cost, std::vector<int>& base, int& cost_bestfound, std::vector<int>& base_bestfound)
@@ -98,8 +97,8 @@ void optimizeBase(std::vector<int64_t>& seq, int carry_ins, std::vector<int64_t>
 
     // "Base case" -- don't split further, build sorting network for current sequence:
     int64_t final_cost = 0;
-    for (int i = 0; i < seq.size(); i++){
-        final_cost += seq[i];
+    for (int64_t cost : seq) {
+        final_cost += cost;
 
         if (final_cost < 0)
             goto TooBig;
@@ -130,12 +129,14 @@ void optimizeBase(std::vector<int64_t>& seq, int carry_ins, std::vector<int64_t>
         int rest = carry_ins;   // Sum of all the remainders.
         int64_t div, rem;
 
-        for (int j = 0; j < seq.size(); j++){
-            rest += seq[j] % p;
-            div = seq[j] / p;
-            if (div > 0)
+        for (int64_t elem : seq) {
+            rest += elem % p;
+            div = elem / p;
+
+            if (div > 0) {
                 //**/pf(" %d", div),
                 new_seq.push_back(div);
+            }
         }
 
 #ifdef AllDigitsImportant
@@ -143,10 +144,10 @@ void optimizeBase(std::vector<int64_t>& seq, int carry_ins, std::vector<int64_t>
 #else
         bool    digit_important = false;
 #endif
-        for (int j = 0; j < rhs.size(); j++){
-            div = rhs[j] / p;
+        for (int64_t elem : rhs) {
+            div = elem / p;
             if (new_rhs.size() == 0 || div > new_rhs.back()){
-                rem = rhs[j] % p;
+                rem = elem % p;
                 new_rhs.push_back(div);
                 if (!(rem == 0 && rest < p) && !(rem > rest))
                     digit_important = true;
@@ -197,9 +198,10 @@ void buildSorter(std::vector<Formula>& ps, std::vector<int>& Cs, std::vector<For
 
 void buildSorter(std::vector<Formula>& ps, std::vector<int64_t>& Cs, std::vector<Formula>& out_sorter)
 {
-    std::vector<int>    Cs_copy;
-    for (int i = 0; i < Cs.size(); i++)
-        Cs_copy.push_back(Cs[i]);
+    std::vector<int>    Cs_copy; Cs_copy.reserve(Cs.size());
+    for (int64_t elem : Cs) {
+        Cs_copy.push_back(static_cast<int>(elem));
+    }
     buildSorter(ps, Cs_copy, out_sorter);
 }
 
@@ -214,9 +216,10 @@ void buildConstraint(std::vector<Formula>& ps, std::vector<int64_t>& Cs, std::ve
     if (digit_no == base.size()){
         // Final digit, build sorter for rest:
         // -- add carry bits:
-        for (int i = 0; i < carry.size(); i++)
-            ps.push_back(carry[i]),
+        for (auto const& elem : carry) {
+            ps.push_back(elem);
             Cs.push_back(1);
+        }
         out_digits.push_back(std::vector<Formula>());
         buildSorter(ps, Cs, out_digits.back());
 
@@ -242,9 +245,10 @@ void buildConstraint(std::vector<Formula>& ps, std::vector<int64_t>& Cs, std::ve
         }
 
         // Add carry bits:
-        for (int i = 0; i < carry.size(); i++)
-            ps_rem.push_back(carry[i]),
+        for (auto const& elem : carry) {
+            ps_rem.push_back(elem);
             Cs_rem.push_back(1);
+        }
 
         // Build sorting network:
         std::vector<Formula> result;
@@ -281,10 +285,11 @@ Naming:
 
 void convert(int64_t num, std::vector<int>& base, std::vector<int>& out_digs)
 {
-    for (int i = 0; i < base.size(); i++){
-        out_digs.push_back(num % base[i]);
-        num /= base[i];
+    for (int b : base) {
+        out_digs.push_back(num % b);
+        num /= b;
     }
+
     out_digs.push_back(num);
 }
 
