@@ -1,0 +1,33 @@
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
+.build: &build
+  stage: build
+  tags: [gcc, clang]
+  script: |
+    scl enable llvm-toolset-7 devtoolset-8 "bash -C" <<EOF
+      export CXX=$CXX
+      cmake -H. -BBuild-$CXX-$TYPE -DCMAKE_BUILD_TYPE=$TYPE
+      make -C Build-$CXX-$TYPE -j`nproc`
+    EOF
+
+build-gcc-debug:
+  <<: *build
+  variables:
+    CXX: g++
+    TYPE: Debug
+build-gcc-release:
+  <<: *build
+  variables:
+    CXX: g++
+    TYPE: Release
+build-clang-debug:
+  <<: *build
+  variables:
+    CXX: clang++
+    TYPE: Release
+build-clang-release:
+  <<: *build
+  variables:
+    CXX: clang++
+    TYPE: Release
