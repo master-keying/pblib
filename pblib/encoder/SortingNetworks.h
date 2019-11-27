@@ -32,12 +32,11 @@ private:
 
 }
 
- void riffle(std::vector<Formula>& fs)
-{
-    std::vector<Formula> tmp; tmp = fs;
-    for (int i = 0; i < fs.size() / 2; i++){
+ void riffle(std::vector<Formula>& fs) {
+    std::vector<Formula> tmp(fs);
+    for (size_t i = 0, e = fs.size() / 2; i < e; i++){
         fs[i*2]   = tmp[i];
-        fs[i*2+1] = tmp[i+fs.size() / 2];
+        fs[i*2+1] = tmp[i+e];
     }
 }
 
