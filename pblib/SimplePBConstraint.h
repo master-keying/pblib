@@ -24,8 +24,8 @@ public:
     int64_t getMaxWeight() const;
     int64_t getMaxSum() const;
 
-    virtual void print(bool std_err = false) const;
-    virtual void printNoNL(bool std_err = false) const;
+    void print(bool std_err = false) const override;
+    void printNoNL(bool std_err = false) const override;
 };
 
 #endif // SIMPLEPBCONSTRAINT_H

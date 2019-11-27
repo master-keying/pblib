@@ -24,9 +24,9 @@ private:
 
 public:
     void encode_intern( std::vector<Lit>& literals, ClauseDatabase & formula, AuxVarManager & auxvars);
-    void encode(const SimplePBConstraint& pbconstraint, ClauseDatabase & formula, AuxVarManager & auxvars);
+    void encode(const SimplePBConstraint& pbconstraint, ClauseDatabase & formula, AuxVarManager & auxvars) override;
 
-    virtual int64_t encodingValue(const SimplePBConstraint& pbconstraint);
+    int64_t encodingValue(const SimplePBConstraint& pbconstraint) override;
 
 
     AMO_Encoder(PBConfig & config);

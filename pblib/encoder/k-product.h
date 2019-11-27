@@ -29,8 +29,8 @@ private:
     void encode_intern( std::vector<Lit>& literals, ClauseDatabase & formula, AuxVarManager & auxvars);
     void encode_non_recursive(std::vector< Lit > & literals, ClauseDatabase & formula, AuxVarManager & auxvars);
 public:
-    void encode(const SimplePBConstraint& pbconstraint, ClauseDatabase & formula, AuxVarManager & auxvars);
-    int64_t encodingValue(const SimplePBConstraint& pbconstraint);
+    void encode(const SimplePBConstraint& pbconstraint, ClauseDatabase & formula, AuxVarManager & auxvars) override;
+    int64_t encodingValue(const SimplePBConstraint& pbconstraint) override;
 
     k_Product(PBConfig & config);
     ~k_Product() override = default;

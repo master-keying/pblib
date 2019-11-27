@@ -23,8 +23,8 @@ private:
 
 public:
     void encode_intern( std::vector<Lit>& literals, ClauseDatabase & formula);
-    void encode(const SimplePBConstraint& pbconstraint, ClauseDatabase& formula, AuxVarManager& auxvars);
-    int64_t encodingValue(const SimplePBConstraint& pbconstraint);
+    void encode(const SimplePBConstraint& pbconstraint, ClauseDatabase& formula, AuxVarManager& auxvars) override;
+    int64_t encodingValue(const SimplePBConstraint& pbconstraint) override;
 
     Naive_amo_encoder(PBConfig & config);
     ~Naive_amo_encoder() override = default;

@@ -25,8 +25,8 @@ private:
     public:
       SWCIncData(std::vector<int32_t> & outlits);
       ~SWCIncData() override = default;
-      virtual void encodeNewGeq(int64_t newGeq, ClauseDatabase& formula, AuxVarManager& auxVars, std::vector< int32_t > conditionals);
-      virtual void encodeNewLeq(int64_t newLeq, ClauseDatabase& formula, AuxVarManager& auxVars, std::vector< int32_t > conditionals);
+      void encodeNewGeq(int64_t newGeq, ClauseDatabase& formula, AuxVarManager& auxVars, std::vector< int32_t > conditionals) override;
+      void encodeNewLeq(int64_t newLeq, ClauseDatabase& formula, AuxVarManager& auxVars, std::vector< int32_t > conditionals) override;
     };
 
     std::vector<int32_t> outlits;
@@ -35,11 +35,11 @@ private:
     void encode_intern(const SimplePBConstraint& pbconstraint, ClauseDatabase & formula, AuxVarManager & auxvars, bool encodeComplete = false);
 
 public:
-    void encode(const SimplePBConstraint& pbconstraint, ClauseDatabase & formula, AuxVarManager & auxvars);
-    int64_t encodingValue(const SimplePBConstraint& pbconstraint);
+    void encode(const SimplePBConstraint& pbconstraint, ClauseDatabase & formula, AuxVarManager & auxvars) override;
+    int64_t encodingValue(const SimplePBConstraint& pbconstraint) override;
 
-    void encode(const std::shared_ptr< IncSimplePBConstraint >& pbconstraint, ClauseDatabase& formula, AuxVarManager& auxvars);
-    int64_t encodingValue(const std::shared_ptr< IncSimplePBConstraint >& pbconstraint);
+    void encode(const std::shared_ptr< IncSimplePBConstraint >& pbconstraint, ClauseDatabase& formula, AuxVarManager& auxvars) override;
+    int64_t encodingValue(const std::shared_ptr< IncSimplePBConstraint >& pbconstraint) override;
 
     SWC_Encoder(PBConfig config);
     ~SWC_Encoder() override = default;
