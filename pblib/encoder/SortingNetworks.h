@@ -187,9 +187,11 @@ void optimizeBase(std::vector<int64_t>& seq, std::vector<int64_t>& rhs, int& cos
 void buildSorter(std::vector<Formula>& ps, std::vector<int>& Cs, std::vector<Formula>& out_sorter)
 {
     out_sorter.clear();
-    for (int i = 0; i < ps.size(); i++)
-        for (int j = 0; j < Cs[i]; j++)
+    for (size_t i = 0; i < ps.size(); i++) {
+        for (int j = 0; j < Cs[i]; j++) {
             out_sorter.push_back(ps[i]);
+        }
+    }
     oddEvenSort(out_sorter); // (overwrites inputs)
 }
 
