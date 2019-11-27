@@ -25,19 +25,24 @@ Comparator IncPBConstraint::getComparator() const
   return comparator;
 }
 
-IncPBConstraint::IncPBConstraint() : comparator(BOTH), leq(0), geq(0), init_leq(leq), init_geq(geq), isDualEncoded(false)
-{
+IncPBConstraint::IncPBConstraint(): leq(0), geq(0), init_leq(leq), init_geq(geq), comparator(BOTH), isDualEncoded(false)
+{}
 
-}
-
-
-
-IncPBConstraint::IncPBConstraint(vector<WeightedLit> const & literals, Comparator comparator, int64_t less_eq, int64_t greater_eq) : weighted_literals(literals), comparator(comparator), leq(less_eq), geq(greater_eq), init_leq(leq), init_geq(geq), isDualEncoded(false)
-{
+IncPBConstraint::IncPBConstraint(vector<WeightedLit> const & literals, Comparator comparator, int64_t less_eq, int64_t greater_eq):
+    leq(less_eq), geq(greater_eq),
+    init_leq(leq), init_geq(geq),
+    weighted_literals(literals),
+    comparator(comparator),
+    isDualEncoded(false) {
   assert(comparator == BOTH);
 }
-IncPBConstraint::IncPBConstraint(vector<WeightedLit> const & literals, Comparator comparator, int64_t bound) : weighted_literals(literals), comparator(comparator), leq(0), geq(0), init_leq(leq), init_geq(geq), isDualEncoded(false)
-{
+
+IncPBConstraint::IncPBConstraint(vector<WeightedLit> const & literals, Comparator comparator, int64_t bound):
+    leq(0), geq(0),
+    init_leq(leq), init_geq(geq),
+    weighted_literals(literals),
+    comparator(comparator),
+    isDualEncoded(false) {
   assert(comparator != BOTH);
   if (comparator == LEQ)
   {
