@@ -36,11 +36,11 @@ inline std::ostream& operator<<(std::ostream& other, const PBLib::WeightedLit & 
 
 /// print elements of a vector
 template <typename T>
-inline std::ostream& print_vector(std::ostream& other, const std::vector<T>& data )
-{
-  for( int i = 0 ; i < data.size(); ++ i )
-    other << " " << data[i];
-  return other;
+std::ostream& print_vector(std::ostream& other, const std::vector<T>& data ) {
+    for (auto const& elem : data) {
+        other << " " << elem;
+    }
+    return other;
 }
 
 
