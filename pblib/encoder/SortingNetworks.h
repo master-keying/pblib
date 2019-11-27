@@ -231,7 +231,7 @@ void buildConstraint(std::vector<Formula>& ps, std::vector<int64_t>& Cs, std::ve
 
         // Split sum according to base:
         int B = base[digit_no];
-        for (int i = 0; i < Cs.size(); i++){
+        for (size_t i = 0; i < Cs.size(); i++){
             int64_t div = Cs[i] / int64_t(B);
             int rem = Cs[i] % B;
             if (div > 0){
