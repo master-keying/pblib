@@ -48,12 +48,9 @@ vector< vector< int32_t > > const & VectorClauseDatabase::getClauses()
 
 
 
-void VectorClauseDatabase::printFormula(ostream& out)
-{
-  for (int i = 0; i < clauses->size(); ++i)
-  {
-    print_vector(out, (*clauses)[i]);
-    out << " 0" << endl;
-  }
+void VectorClauseDatabase::printFormula(ostream& out) {
+    for (auto const& clause : *clauses) {
+        print_vector(out, clause);
+        out << " 0\n";
+    }
 }
-
