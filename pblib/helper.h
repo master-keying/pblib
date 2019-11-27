@@ -51,12 +51,4 @@ public:
   static int rand();
 };
 
-namespace helper
-{
-  void printClause(std::vector<int32_t> & clause);
-
-
-}
-
-
 #endif
