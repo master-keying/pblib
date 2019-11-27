@@ -40,12 +40,11 @@ private:
     }
 }
 
- void unriffle(std::vector<Formula>& fs)
-{
-    std::vector<Formula> tmp; tmp = fs;
-    for (int i = 0; i < fs.size() / 2; i++){
-        fs[i]               = tmp[i*2];
-        fs[i+fs.size() / 2] = tmp[i*2+1];
+ void unriffle(std::vector<Formula>& fs) {
+    std::vector<Formula> tmp(fs);
+    for (size_t i = 0, e = fs.size() / 2; i < e; i++){
+        fs[i]   = tmp[i*2];
+        fs[i+e] = tmp[i*2+1];
     }
 }
 
