@@ -93,17 +93,20 @@ PBConstraint PBConstraint::getLeqConstraint() const
   return c;
 }
 
-PBConstraint::PBConstraint() :  comparator(LEQ), leq(0), geq(0)
-{
+PBConstraint::PBConstraint(): leq(0), geq(0), comparator(LEQ)
+{}
 
-}
-
-PBConstraint::PBConstraint(vector<WeightedLit> const & literals, Comparator comparator, int64_t less_eq, int64_t greater_eq) : weighted_literals(literals), comparator(comparator), leq(less_eq), geq(greater_eq)
-{
+PBConstraint::PBConstraint(vector<WeightedLit> const & literals, Comparator comparator, int64_t less_eq, int64_t greater_eq):
+    leq(less_eq), geq(greater_eq),
+    weighted_literals(literals),
+    comparator(comparator) {
   assert(comparator == BOTH);
 }
-PBConstraint::PBConstraint(vector<WeightedLit> const & literals, Comparator comparator, int64_t bound) : weighted_literals(literals), comparator(comparator), leq(0), geq(0)
-{
+
+PBConstraint::PBConstraint(vector<WeightedLit> const & literals, Comparator comparator, int64_t bound):
+    leq(0), geq(0),
+    weighted_literals(literals),
+    comparator(comparator) {
   if (comparator == LEQ)
     leq = bound;
   else if (comparator == GEQ)
