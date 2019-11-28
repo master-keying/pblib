@@ -35,16 +35,16 @@ private:
  void riffle(std::vector<Formula>& fs) {
     std::vector<Formula> tmp(fs);
     for (size_t i = 0, e = fs.size() / 2; i < e; i++){
-        fs[i*2]   = tmp[i];
-        fs[i*2+1] = tmp[i+e];
+        fs[i*2]   = std::move(tmp[i]);
+        fs[i*2+1] = std::move(tmp[i+e]);
     }
 }
 
  void unriffle(std::vector<Formula>& fs) {
     std::vector<Formula> tmp(fs);
     for (size_t i = 0, e = fs.size() / 2; i < e; i++){
-        fs[i]   = tmp[i*2];
-        fs[i+e] = tmp[i*2+1];
+        fs[i]   = std::move(tmp[i*2]);
+        fs[i+e] = std::move(tmp[i*2+1]);
     }
 }
 
