@@ -32,21 +32,19 @@ private:
 
 }
 
- void riffle(std::vector<Formula>& fs)
-{
-    std::vector<Formula> tmp; tmp = fs;
-    for (int i = 0; i < fs.size() / 2; i++){
-        fs[i*2]   = tmp[i];
-        fs[i*2+1] = tmp[i+fs.size() / 2];
+ void riffle(std::vector<Formula>& fs) {
+    std::vector<Formula> tmp(fs);
+    for (size_t i = 0, e = fs.size() / 2; i < e; i++){
+        fs[i*2]   = std::move(tmp[i]);
+        fs[i*2+1] = std::move(tmp[i+e]);
     }
 }
 
- void unriffle(std::vector<Formula>& fs)
-{
-    std::vector<Formula> tmp; tmp = fs;
-    for (int i = 0; i < fs.size() / 2; i++){
-        fs[i]               = tmp[i*2];
-        fs[i+fs.size() / 2] = tmp[i*2+1];
+ void unriffle(std::vector<Formula>& fs) {
+    std::vector<Formula> tmp(fs);
+    for (size_t i = 0, e = fs.size() / 2; i < e; i++){
+        fs[i]   = std::move(tmp[i*2]);
+        fs[i+e] = std::move(tmp[i*2+1]);
     }
 }
 
@@ -189,9 +187,11 @@ void optimizeBase(std::vector<int64_t>& seq, std::vector<int64_t>& rhs, int& cos
 void buildSorter(std::vector<Formula>& ps, std::vector<int>& Cs, std::vector<Formula>& out_sorter)
 {
     out_sorter.clear();
-    for (int i = 0; i < ps.size(); i++)
-        for (int j = 0; j < Cs[i]; j++)
+    for (size_t i = 0; i < ps.size(); i++) {
+        for (int j = 0; j < Cs[i]; j++) {
             out_sorter.push_back(ps[i]);
+        }
+    }
     oddEvenSort(out_sorter); // (overwrites inputs)
 }
 
@@ -231,7 +231,7 @@ void buildConstraint(std::vector<Formula>& ps, std::vector<int64_t>& Cs, std::ve
 
         // Split sum according to base:
         int B = base[digit_no];
-        for (int i = 0; i < Cs.size(); i++){
+        for (size_t i = 0; i < Cs.size(); i++){
             int64_t div = Cs[i] / int64_t(B);
             int rem = Cs[i] % B;
             if (div > 0){
